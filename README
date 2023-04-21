@@ -116,21 +116,21 @@ v.00001.2023-04-04
   ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
   ├── ./data                                                    
   │   ├── bird.data.RData                                         # Main dataset for capture-recapture of birds at 
-                                                                  # El Garrapatero, Santa Cruz Island.  
+  │   │                                                           # El Garrapatero, Santa Cruz Island.  
   │   ├── ./climate                                             
-  │       ├── climate_puerto-ayora_V.XXXX-XX-XX.csv               # Meteorological station data (precipitation)
-  │       ├── ./ENSO                                            
-  │           └── oni.ascii_V.XXXX-XX-XX.txt                      # Oceanic Niño Index
-  │       ├── ./Kleindorfer.et.al._2006                         
-  │           ├── H.L.lands.fig3.Kleindorfer.2006.png             # figure 3 from Kleindorfer et. al. 2006 
-  │           ├── H.L.lands.fig3.Kleindorfer.2006.csv             # Extracted data from figure 3 from 
-                                                                  # Kleindorfer et. al. 2006 using WebPlotDigitizer
-  │           └── Kleindorfer.et.al.2006.WebPlotDigitizer.json    # WebPlotDigitizer data file 
+  │   │   ├── climate_puerto-ayora_V.XXXX-XX-XX.csv               # Meteorological station data (precipitation)
+  │   │   ├── ./ENSO                                            
+  │   │   │   └── oni.ascii_V.XXXX-XX-XX.txt                      # Oceanic Niño Index
+  │   │   └── ./Kleindorfer.et.al._2006                         
+  │   │       ├── H.L.lands.fig3.Kleindorfer.2006.png             # figure 3 from Kleindorfer et. al. 2006 
+  │   │       ├── H.L.lands.fig3.Kleindorfer.2006.csv             # Extracted data from figure 3 from 
+  │   │                                                           # Kleindorfer et. al. 2006 using WebPlotDigitizer
+  │   │       └── Kleindorfer.et.al.2006.WebPlotDigitizer.json    # WebPlotDigitizer data file 
   │   ├── ./maps                                                
   │       ├── Galapagos.EG.nets.csv                               # Approximate mistnet GPS  at El Garrapatero
   │       ├── galapagos.gis.gpkg                                  # Geopackage with 2 layers: 
-                                                                  # 1. polygon of all islands, 
-                                                                  # 2. line string of roads on all islands 
+  │       │                                                       # 1. polygon of all islands, 
+  │       │                                                       # 2. line string of roads on all islands 
   │       └── map.back.gpkg                                       # Geopackage of polygons for background of maps 
   
   
@@ -138,75 +138,75 @@ v.00001.2023-04-04
   ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
   ├── ./output                                             
   │   ├── ./adaptive_land.animation                        
-  │       └── ./_fitplot.gif                                 # contains images to construct a GIF on how to 
-                                                             # calcualte an adaptive landscape 
-  |           └── [...] Miscellaneous files                  # files for .gif construction 
+  │   │   └── ./_fitplot.gif                                 # contains images to construct a GIF on how to 
+  │   │       │                                              # calcualte an adaptive landscape 
+  |   │       └── [...] Miscellaneous files                  # files for .gif construction 
   │   ├── ./data.out                                       
-  │       ├── ./adpt_land.sp                                
-  │           ├── all.sp_EG.RDS                              # Adaptive landscape data 
-  │       ├── ./fitness.landscape.data                     
-  │         ├── all.local.max_pca.RDS                        # Phenotypic position and value of fitness local 
-                                                             # maxima for all species (PCA traits)
-  │         ├── all.local.max.RDS                            # Phenotypic position and value of fitness local 
-                                                             # maxima for all species (beak traits)
-  │         ├── fitness.summary.RDS                          # Combination of all.local.max and w.data
-  │         ├── min.fit.sca.comp.RDS                         # Walking the fitness surface fitness-peak between 
-                                                             # species: Peak to peak measurements 
-  │         ├── summ.mean.traits.RDS                         # Summary of the beak and body traits YEARLY (in 
-                                                             # fit.land.analysis.R)
-  │         ├── w.data.RDS                                   # Average and predicted fitness at trait average (and 
-                                                             # average + sd of beak traits)
-  │       ├── ./ggplot_data                                 
-  │           ├── ggp.fit.no.model.RDS                       # ggplot data for fitness landscape without model 
-  │       ├── ./landscape_data                              
-  │           ├── my.persp.data_pca.RDS                      # Data from plot.gam.cust() function using GAM with 
-                                                             # PCA traits
-  │           ├── my.persp.data.RDS                          # Data from plot.gam.cust() function using GAM with 
-                                                             # beak traits
-  │       ├── ./tables                                      
-  │           ├── between.species.pheno.eucli.csv                # Euclidean distance of each mode for pairwise 
-                                                                 # mean phenotypes (lower portion) and for pairwise
-                                                                 G-transformed mean phenotypes (upper portion). 
-  │           ├── euclidean.csv                                  # table of Euclidean distances of population mean 
-                                                                 # to the position of the peaks on the fitness
-  │           ├── fitness.diff.within.species.adaptive.walk.csv  # % fitness loss from fitness peak and fitness at 
-                                                                 # phenotypic mean
-  │           ├── fitness.landscape.features.csv                 # % fitness loss from fitness peak and fitness at 
-                                                                 # phenotypic mean
-  │           ├── pca.loadings_EG.csv                            # Principal component analysis loadings 
-  │           ├── recapnumber_EG.csv                             # Recapture data at El Garrapatero
-  │           └── sampling.effort.sampling.range_EG.csv          # Sampling effort for the ground finches studied 
-                                                                 # with minimum and maximum date of visit and 
-                                                                 # number of individual of each species captured. 
+  │   │   ├── ./adpt_land.sp                                
+  │   │   │   └── all.sp_EG.RDS                              # Adaptive landscape data 
+  │   │   ├── ./fitness.landscape.data                     
+  │   │   │   ├── all.local.max_pca.RDS                      # Phenotypic position and value of fitness local 
+  │   │   │   │                                              # maxima for all species (PCA traits)
+  │   │   │   ├── all.local.max.RDS                          # Phenotypic position and value of fitness local 
+  │   │   │   │                                              # maxima for all species (beak traits)
+  │   │   │   ├── fitness.summary.RDS                        # Combination of all.local.max and w.data
+  │   │   │   ├── min.fit.sca.comp.RDS                       # Walking the fitness surface fitness-peak between 
+  │   │   │   │                                              # species: Peak to peak measurements 
+  │   │   │   ├── summ.mean.traits.RDS                       # Summary of the beak and body traits YEARLY (in 
+  │   │   │   │                                              # fit.land.analysis.R)
+  │   │   │   └── w.data.RDS                                 # Average and predicted fitness at trait average (and 
+  │   │   │                                                  # average + sd of beak traits)
+  │   │   ├── ./ggplot_data                                 
+  │   │   │   └── ggp.fit.no.model.RDS                       # ggplot data for fitness landscape without model 
+  │   │   ├── ./landscape_data                              
+  │   │       ├── my.persp.data_pca.RDS                      # Data from plot.gam.cust() function using GAM with 
+  │   │       │                                              # PCA traits
+  │   │       └── my.persp.data.RDS                          # Data from plot.gam.cust() function using GAM with 
+  │   │                                                      # beak traits
+  │   │   ├── ./tables                                      
+  │   │       ├── between.species.pheno.eucli.csv                # Euclidean distance of each mode for pairwise 
+  │   │       │                                                  # mean phenotypes (lower portion) and for pairwise
+  │   │       │                                                  G-transformed mean phenotypes (upper portion). 
+  │   │       ├── euclidean.csv                                  # table of Euclidean distances of population mean 
+  │   │       │                                                  # to the position of the peaks on the fitness
+  │   │       ├── fitness.diff.within.species.adaptive.walk.csv  # % fitness loss from fitness peak and fitness at 
+  │   │       │                                                  # phenotypic mean
+  │   │       ├── fitness.landscape.features.csv                 # % fitness loss from fitness peak and fitness at 
+  │   │       │                                                  # phenotypic mean
+  │   │       ├── pca.loadings_EG.csv                            # Principal component analysis loadings 
+  │   │       ├── recapnumber_EG.csv                             # Recapture data at El Garrapatero
+  │   │       └── sampling.effort.sampling.range_EG.csv          # Sampling effort for the ground finches studied 
+  │   │                                                          # with minimum and maximum date of visit and 
+  │   │                                                          # number of individual of each species captured. 
   │   ├── ./images                                                                
-  │           ├── ./climate                                                       
-  │               ├── fuliginosa.beak.length.precipitation.png       # Precipitation pattern associated with High- 
-                                                                     # lowlands for G. fuliginosa
-  │               ├── precipitation.Puerto.ayora.el.nino.la.nina.png # Precipitation pattern for the length of the 
-                                                                     # study with ONI El Nino and La Nina 
-  │           ├── ./data_exploration                                 
-  │               ├── density.traits_and_pca_EG.png                  # Density of birds for beak and PC traits 
-  │               ├── effort.plot.per.species_EG.png                 # Number of captures of Darwin's finches for 
-                                                                     # the study system 
-  │               ├── pairs.traits_EG.png                            # Pairs plot for all beak, body and PCA traits
-  │           ├── ./landscape_plots                                                
-  │               ├── fit.surf.adapt.land.simulations_complete_single_ggpt_EG.pdf   # Fitness landscape without 
-                                                                                    # model, with GAM and adaptive 
-                                                                                    # landscape for all finches
-  │               ├── fit.surf.PCA_ggpt_EG.png                   # Fitness landscape with PCA traits 
-  │               ├── fit.surf.walk_ggpt_EG.png                  # Walking on the fitness landscape and valleys 
-                                                                 # between peaks of different species and between 
-                                                                 # peak and phenotypic average within species
-  │               ├── fit.surf.yr.chg_ggpt_EG.png                # Fitness landscape with phenotypic average in 
-                                                                 # every year 
-  │               ├── fitplot.average.change_se_ggplt_EG.png     # Standard error of fitness landscape
-  │           ├── ./maps                                         
-  │               ├── santa_Cruz_and_sampling_area_EG.png        # Figure of Santa Cruz island and sampling sites 
-  │           └── prospective_selection_EG.png                   # Figure of prospective selection 
+  │   │       ├── ./climate                                                       
+  │   │       │   ├── fuliginosa.beak.length.precipitation.png       # Precipitation pattern associated with High- 
+  │   │       │   │                                                  # lowlands for G. fuliginosa
+  │   │       │   └── precipitation.Puerto.ayora.el.nino.la.nina.png # Precipitation pattern for the length of the 
+  │   │       │                                                      # study with ONI El Nino and La Nina 
+  │   │       ├── ./data_exploration                                 
+  │   │       │   ├── density.traits_and_pca_EG.png                  # Density of birds for beak and PC traits 
+  │   │       │   ├── effort.plot.per.species_EG.png                 # Number of captures of Darwin's finches for 
+  │   │       │   │                                                  # the study system 
+  │   │       │   └── pairs.traits_EG.png                            # Pairs plot for all beak, body and PCA traits
+  │   │       ├── ./landscape_plots                                                
+  │   │       │   ├── fit.surf.adapt.land.simulations_complete_single_ggpt_EG.pdf   # Fitness landscape without 
+  │   │       │   │                                                                 # model, with GAM and adaptive 
+  │   │       │   │                                                                 # landscape for all finches
+  │   │       │   ├── fit.surf.PCA_ggpt_EG.png                   # Fitness landscape with PCA traits 
+  │   │       │   ├── fit.surf.walk_ggpt_EG.png                  # Walking on the fitness landscape and valleys 
+  │   │       │   │                                              # between peaks of different species and between 
+  │   │       │   │                                              # peak and phenotypic average within species
+  │   │       │   ├── fit.surf.yr.chg_ggpt_EG.png                # Fitness landscape with phenotypic average in 
+  │   │       │   │                                              # every year 
+  │   │       │   └── fitplot.average.change_se_ggplt_EG.png     # Standard error of fitness landscape
+  │   │       ├── ./maps                                         
+  │   │       │   └── santa_Cruz_and_sampling_area_EG.png        # Figure of Santa Cruz island and sampling sites 
+  │   │       └── prospective_selection_EG.png                   # Figure of prospective selection 
   │   ├── ./model.out                                      
-  │       ├── poisson.spline.model_EG.RDS                    # GAM model for beak traits
-  │       ├── poisson.spline.model_pca.RDS                   # GAM model for PC traits
-  │       └── spline.model.parameters.csv                    # Parameters of spline beak traits
+  │   │   ├── poisson.spline.model_EG.RDS                    # GAM model for beak traits
+  │   │   ├── poisson.spline.model_pca.RDS                   # GAM model for PC traits
+  │   │   └── spline.model.parameters.csv                    # Parameters of spline beak traits
   │   ├── ./session_info                                   
   │       └── session_information.txt                        # R Session information (packagesand operating system)
   
@@ -217,41 +217,41 @@ v.00001.2023-04-04
   │   ├── 00_a.runall.R                                      # Script to source all the other scripts in order 
   │   ├── 0.0_initialize.R                                   # Contains packages and functions, (session info)
   │   ├── ./adaptive_landscapes                            
-  │       ├── adaptive.landscape.calculation.R               # Calculates the 2d-adaptive landscape for Darwin's 
-                                                             # finches based on the fitness landscape 
-  │       └── gif.walking.adaptive.landscape.R               # Generate a GIF on how to compute adaptive landscapes 
+  │   │   ├── adaptive.landscape.calculation.R               # Calculates the 2d-adaptive landscape for Darwin's 
+  │   │   │                                                  # finches based on the fitness landscape 
+  │   │   └── gif.walking.adaptive.landscape.R               # Generate a GIF on how to compute adaptive landscapes 
   │   ├── ./climate                                        
-  │       ├── climate.analysis.R                             # Compute sum precipitation per month for all years in
-                                                             # study and climate high- lowland G. fuliginosa image
+  │   │   └── climate.analysis.R                             # Compute sum precipitation per month for all years in
+  │   │                                                      # study and climate high- lowland G. fuliginosa image
   │   ├── ./CMR                                            
-  │       └── cmr.test.R                                     # Capture-Mark-Recapture calculation on the data 
+  │   │   └── cmr.test.R                                     # Capture-Mark-Recapture calculation on the data 
   │   ├── ./fitness_surfaces                               
-  │       ├── fit.land.analysis.R                            # Prepare the data for GAM and prints tables
-  │       ├── fit.land.analysis_2.R                          # GAM fitting 
-  │       ├── fit.land.analysis_3.R                          # Plot fitness landscape, euclidean distance on 
-                                                             # landscape, find fitness maxima, prospective 
-                                                             # selection, tables of walk on the fitness landscape 
-  │       ├── fit.land.walk.R                                # Figures of the walk on the fitness landscape 
-                                                             # (showing valleys and peaks)
-  │       └── plot_fitness_no_model.R                        # Plot fitness landscape using a smoothed average of 
-                                                             # raw fitness values across all phenotypic 
-                                                             # combinations for raw values. 
+  │   │   ├── fit.land.analysis.R                            # Prepare the data for GAM and prints tables
+  │   │   ├── fit.land.analysis_2.R                          # GAM fitting 
+  │   │   ├── fit.land.analysis_3.R                          # Plot fitness landscape, euclidean distance on 
+  │   │   │                                                  # landscape, find fitness maxima, prospective 
+  │   │   │                                                  # selection, tables of walk on the fitness landscape 
+  │   │   ├── fit.land.walk.R                                # Figures of the walk on the fitness landscape 
+  │   │   │                                                  # (showing valleys and peaks)
+  │   │   └── plot_fitness_no_model.R                        # Plot fitness landscape using a smoothed average of 
+  │   │                                                      # raw fitness values across all phenotypic 
+  │   │                                                      # combinations for raw values. 
   │   ├── ./functions                                      
-  │       ├── 00_info_session.R                              # Prints packages used and operating system in file 
-  │       └── 0.1_misc.R                                     # More helper functions 
-  │       ├── cor_fun.R                                      # Used for ggpairs in fit.land.analysis.R
-  │       ├── euclidean_dist.R                               # Used to calculate the euclidean distance and get 
-                                                             # the angle between vectors in fit.land.analysis_3.R
-  │       ├── intersect.lines.R                              # Draw perpendicular lines in a plot for prospective 
-                                                             # selection in fit.land.analysis_3.R
-  │       ├── isolate_surface.R                              # Helper function to find fitness maxima on a surface 
-                                                             # in R in fit.land.analysis_3.R
-  │       ├── plot_gams.R                                    # Plots gam output as surface and collects data of the 
-                                                             # surface and its standard error
+  │   │   ├── 00_info_session.R                              # Prints packages used and operating system in file 
+  │   │   └── 0.1_misc.R                                     # More helper functions 
+  │   │   ├── cor_fun.R                                      # Used for ggpairs in fit.land.analysis.R
+  │   │   ├── euclidean_dist.R                               # Used to calculate the euclidean distance and get 
+  │   │   │                                                  # the angle between vectors in fit.land.analysis_3.R
+  │   │   ├── intersect.lines.R                              # Draw perpendicular lines in a plot for prospective 
+  │   │   │                                                  # selection in fit.land.analysis_3.R
+  │   │   ├── isolate_surface.R                              # Helper function to find fitness maxima on a surface 
+  │   │   │                                                  # in R in fit.land.analysis_3.R
+  │   │   └── plot_gams.R                                    # Plots gam output as surface and collects data of the 
+  │   │                                                      # surface and its standard error
   │   ├── ./maps                                           
-  │       └── Maps sites Galapagos drawing net and sites.R   # Generates maps of islands, and mistnets locations 
-  │   ├── Repeat.R                                           # Repeatability measures 
-  
+  │   │   └── Maps sites Galapagos drawing net and sites.R   # Generates maps of islands, and mistnets locations 
+  │   └── Repeat.R                                           # Repeatability measures 
+  │
   └── [...] Miscellaneous files                              # LICENSE, .Rproj, .gitignore... 
 ```
 
