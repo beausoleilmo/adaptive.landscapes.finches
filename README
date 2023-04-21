@@ -14,29 +14,29 @@ v.00001.2023-04-04
 
 2. Author Information
   Corresponding Investigator 
-    Name: Marc-Olivier Beausoleil 
+    Name:        Marc-Olivier Beausoleil 
     Institution: McGill University
-    Email: marc-olivier.beausoleil@mail.mcgill.ca
+    Email:       marc-olivier.beausoleil@mail.mcgill.ca
 
   Co-investigators
-    Name:                    Institution:
-    Paola Carrión-Avilés     McGill University
-    Jeffrey Podos            University of Massachusetts Amherst
-    Carlos Camacho           Estación Biológica de Doñana—CSIC
-    Julio Rabadán-González   Observation.org
-    Roxanne Richard          McGill University
-    Kristen Lalla            McGill University
-    Joost A. M. Raeymaekers  Nord University
-    Sarah A. Knutie          University of Connecticut
-    Luis F. De León          University of Massachusetts Boston
-    Jaime A. Chaves          San Francisco State University
-    Dale H. Clayton          University of Utah
-    Jennifer A. H. Koop      Northern Illinois University
-    Diana M. T. Sharpe       Worcester State University
-    Kiyoko M. Gotanda        McGill University 
-    Sarah K. Huber           Virginia Institute of Marine Science
-    Rowan D. H. Barrett      McGill University
-    Andrew P. Hendry         McGill University
+    Name: -------------------  Institution: -------------------------
+      Paola Carrión-Avilés       McGill University
+      Jeffrey Podos              University of Massachusetts Amherst
+      Carlos Camacho             Estación Biológica de Doñana—CSIC
+      Julio Rabadán-González     Observation.org
+      Roxanne Richard            McGill University
+      Kristen Lalla              McGill University
+      Joost A. M. Raeymaekers    Nord University
+      Sarah A. Knutie            University of Connecticut
+      Luis F. De León            University of Massachusetts Boston
+      Jaime A. Chaves            San Francisco State University
+      Dale H. Clayton            University of Utah
+      Jennifer A. H. Koop        Northern Illinois University
+      Diana M. T. Sharpe         Worcester State University
+      Kiyoko M. Gotanda          McGill University 
+      Sarah K. Huber             Virginia Institute of Marine Science
+      Rowan D. H. Barrett        McGill University
+      Andrew P. Hendry           McGill University
 
 3. Date of data collection: 
   2003-2020
@@ -95,12 +95,12 @@ v.00001.2023-04-04
   - Folders are noted with "./folder_name"
   - File are shown with an extension such as: 
     - .csv:    Comma separated values
-    - .gpkg:  GeoPackage (read with `sf::st_read()` function)
+    - .gpkg:   GeoPackage (read with `sf::st_read()` function)
     - .gif:    Graphics Interchange Format
-    - .json:  JavaScript Object Notation
+    - .json:   JavaScript Object Notation
     - .pdf:    Portable Document Format
     - .png:    Portable Network Graphics
-    - .R:    R script
+    - .R:      R script
     - .RDS:    Stores a singe R object (read with `base::readRDS()` function)
     - .RData:  Stores multiple R object (read with `base::load()` function)
     - .txt:    text file 
