@@ -68,8 +68,7 @@ v.00001.2023-04-04
   fitness landscape
 
 7. Recommended citation for this dataset: 
-  Beausoleil, M.-O. et al. (2023), TITLE, Dryad, Dataset, https://doi.org/XXXX
-
+  Beausoleil, Marc-Olivier; Carrión-Avilés, Paola; Podos, Jeffrey; Camacho, Carlos; Rabadán-González, Julio; Richard, Roxanne; Lalla, Kristen; Raeymaekers, Joost A. M.; Knutie, Sarah A.; De León, Luis F.; Chaves, Jaime A.; Clayton, Dale H.; Koop, Jennifer A. H.; Sharpe, Diana M. T.; Gotanda, Kiyoko M.; Huber, Sarah K.; Barrett, Rowan D. H.; Hendry, Andrew P., 2023, "The fitness landscape of a community of Darwin’s finches", https://doi.org/10.5683/SP3/0YIWSE, Borealis. 
 
 ##################################
 ###### DATA & FILE OVERVIEW ######
@@ -115,7 +114,7 @@ v.00001.2023-04-04
 
   ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
   ├── ./data                                                    
-  │   ├── bird.data.RData                                         # Main dataset for capture-recapture of birds at 
+  │   ├── bird.data.RData and bird.data.csv                       # Main dataset for capture-recapture of birds at 
   │   │                                                           # El Garrapatero, Santa Cruz Island.  
   │   ├── ./climate                                             
   │   │   ├── climate_puerto-ayora_V.XXXX-XX-XX.csv               # Meteorological station data (precipitation)

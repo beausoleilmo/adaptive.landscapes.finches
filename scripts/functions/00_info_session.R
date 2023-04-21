@@ -30,6 +30,16 @@ info.session <- function(path = "output/session_info",
   si
   print(si)
   
+  cat("\n\n##### Other programs ############################################################\n\n")
+  
+  cat("\n\n##### ImageMagick ##############################\n\n")
+  im.v = system("magick -version", intern = TRUE)
+  sapply(X = im.v, FUN = function(x) cat(x, '\n'))
+  
+  cat("\n\n##### FFMPEG ##############################\n\n")
+  ff.v = system("ffmpeg -version", intern = TRUE)
+  sapply(X = ff.v, FUN = function(x) cat(x, '\n'))
+  
   sink()
   
 }

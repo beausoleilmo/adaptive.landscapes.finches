@@ -18,7 +18,8 @@ site.check = "El Garrapatero"
 ext.file = "_EG"
 
 # Data --------------------------------------------------------------------
-load('data/bird.data.RData', verbose = TRUE)
+load('data/bird.data.RData', verbose = TRUE) 
+write.csv(x = bird.data, file = "data/bird.data.csv")
 
 col.check = c("BANDFINAL", "Date", "Species1", "Sex0", 
               "first", "last",  "maxseen", "ch",  "maxseen.corr", "ch.corr",
