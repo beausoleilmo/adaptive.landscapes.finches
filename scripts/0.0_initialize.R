@@ -16,6 +16,19 @@
 # NOTES: 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 
+
+# Install libraries only if needed ----------------------------------------------------------------------------
+# Source: https://stackoverflow.com/questions/4090169/elegant-way-to-check-for-missing-packages-and-install-them
+list.of.packages <- c("adehabitatHR","cowplot","data.table","faux","fields",
+                      "GA","GGally","ggnewscale","ggpubr","ggrepel","ggsignif",
+                      "ggspatial","grid","gridExtra","gss","kableExtra",
+                      "lubridate","magick","mapview","marked","MASS","metR",
+                      "mgcv","mixtools","parallel","plotly","readxl","rgdal",
+                      "rgl","rJava","rptR","scales","scatterplot3d","sf",
+                      "tibble","tidyverse","vegan","viridis","xlsx")
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+
 # Load libraries ----------------------------------------------------------
 library(data.table)   # check this https://mac.r-project.org/openmp/
 library(tidyverse)    # %>% 
@@ -35,7 +48,6 @@ library(plotly)       # ggplotly() and plot_ly
 library(scales)       # pretty_breaks, alpha
 library(GGally)       # for ggpairs
 library(GA)           # for persp3D
-library(magick)       # For making the gif 
 
 library(rptR)         # For repeatability
 library(tibble)       # add_column
@@ -57,7 +69,7 @@ library(grid)         #
 
 # For Gif generation ------------------------------------------------------
 library(viridis)      # 
-library(magick)       # 
+library(magick)       # For making the gif 
 
 # Used for adaptive landscape
 library(metR)          # geom_text_contour

@@ -90,20 +90,22 @@ v.00001.2023-04-04
     The scripts and data and for the R language (R Core Team 2023; R version, 4.2.1 (Funny-Looking Kid)). 
 
 2. Folder content structure and file List: 
-## Note: 
-  - Folders are noted with "./folder_name"
-  - File are shown with an extension such as: 
-    - .csv:    Comma separated values
-    - .gpkg:   GeoPackage (read with `sf::st_read()` function)
-    - .gif:    Graphics Interchange Format
-    - .json:   JavaScript Object Notation
-    - .pdf:    Portable Document Format
-    - .png:    Portable Network Graphics
-    - .R:      R script
-    - .RDS:    Stores a singe R object (read with `base::readRDS()` function)
-    - .RData:  Stores multiple R object (read with `base::load()` function)
-    - .txt:    text file 
-    - .Rproj:  project file 
+ - Use the script `00_a.runall.R` to run the scripts in the intended order using the folder structure below. 
+
+  - Note: 
+    - Folders are noted with "./folder_name"
+    - File are shown with an extension such as: 
+      - .csv:    Comma separated values
+      - .gpkg:   GeoPackage (read with `sf::st_read()` function)
+      - .gif:    Graphics Interchange Format
+      - .json:   JavaScript Object Notation
+      - .pdf:    Portable Document Format
+      - .png:    Portable Network Graphics
+      - .R:      R script
+      - .RDS:    Stores a singe R object (read with `base::readRDS()` function)
+      - .RData:  Stores multiple R object (read with `base::load()` function)
+      - .txt:    text file 
+      - .Rproj:  project file 
   
   
  ```
