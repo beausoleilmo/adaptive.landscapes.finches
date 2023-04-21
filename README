@@ -280,9 +280,9 @@ v.00001.2023-04-04
        - `map.back.gpkg` contains polygons of land features at El Garrapatero. 
      
    Other datasets: 
-   The precipitation data `climate_puerto-ayora_V.2023-04-19.csv`: 
+   The precipitation data `climate_puerto-ayora_V.XXXX-XX-XX.csv`: 
      - Source: https://www.darwinfoundation.org/images/climate/climate_puerto-ayora.csv
-   The ENSO data `oni.ascii_V.2023-04-21.txt`
+   The ENSO data `oni.ascii_V.XXXX-XX-XX.txt`
      - Source: https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt
    The highland and lowland G. fuliginosa data `H.L.lands.fig3.Kleindorfer.2006.csv` 
      - Source: Figure 3 from Kleindorfer et. al. 2006 
