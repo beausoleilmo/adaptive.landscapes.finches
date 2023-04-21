@@ -135,6 +135,49 @@ v.00001.2023-04-04
   
   
   ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
+  ├── ./scripts                                            
+  │   ├── 00_a.runall.R                                      # Script to source all the other scripts in order 
+  │   ├── 0.0_initialize.R                                   # Contains packages and functions, (session info)
+  │   ├── ./adaptive_landscapes                            
+  │   │   ├── adaptive.landscape.calculation.R               # Calculates the 2d-adaptive landscape for Darwin's 
+  │   │   │                                                  # finches based on the fitness landscape 
+  │   │   └── gif.walking.adaptive.landscape.R               # Generate a GIF on how to compute adaptive landscapes 
+  │   ├── ./climate                                        
+  │   │   └── climate.analysis.R                             # Compute sum precipitation per month for all years in
+  │   │                                                      # study and climate high- lowland G. fuliginosa image
+  │   ├── ./CMR                                            
+  │   │   └── cmr.test.R                                     # Capture-Mark-Recapture calculation on the data 
+  │   ├── ./fitness_surfaces                               
+  │   │   ├── fit.land.analysis.R                            # Prepare the data for GAM and prints tables
+  │   │   ├── fit.land.analysis_2.R                          # GAM fitting 
+  │   │   ├── fit.land.analysis_3.R                          # Plot fitness landscape, euclidean distance on 
+  │   │   │                                                  # landscape, find fitness maxima, prospective 
+  │   │   │                                                  # selection, tables of walk on the fitness landscape 
+  │   │   ├── fit.land.walk.R                                # Figures of the walk on the fitness landscape 
+  │   │   │                                                  # (showing valleys and peaks)
+  │   │   └── plot_fitness_no_model.R                        # Plot fitness landscape using a smoothed average of 
+  │   │                                                      # raw fitness values across all phenotypic 
+  │   │                                                      # combinations for raw values. 
+  │   ├── ./functions                                      
+  │   │   ├── 00_info_session.R                              # Prints packages used and operating system in file 
+  │   │   └── 0.1_misc.R                                     # More helper functions 
+  │   │   ├── cor_fun.R                                      # Used for ggpairs in fit.land.analysis.R
+  │   │   ├── euclidean_dist.R                               # Used to calculate the euclidean distance and get 
+  │   │   │                                                  # the angle between vectors in fit.land.analysis_3.R
+  │   │   ├── intersect.lines.R                              # Draw perpendicular lines in a plot for prospective 
+  │   │   │                                                  # selection in fit.land.analysis_3.R
+  │   │   ├── isolate_surface.R                              # Helper function to find fitness maxima on a surface 
+  │   │   │                                                  # in R in fit.land.analysis_3.R
+  │   │   └── plot_gams.R                                    # Plots gam output as surface and collects data of the 
+  │   │                                                      # surface and its standard error
+  │   ├── ./maps                                           
+  │   │   └── Maps sites Galapagos drawing net and sites.R   # Generates maps of islands, and mistnets locations 
+  │   └── Repeat.R                                           # Repeatability measures 
+
+
+
+
+  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
   ├── ./output                                             
   │   ├── ./adaptive_land.animation                        
   │   │   └── ./_fitplot.gif                                 # contains images to construct a GIF on how to 
@@ -208,50 +251,9 @@ v.00001.2023-04-04
   │   │   └── spline.model.parameters.csv                    # Parameters of spline beak traits
   │   ├── ./session_info                                   
   │       └── session_information.txt                        # R Session information (packagesand operating system)
-  
-  
-  
-  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
-  ├── ./scripts                                            
-  │   ├── 00_a.runall.R                                      # Script to source all the other scripts in order 
-  │   ├── 0.0_initialize.R                                   # Contains packages and functions, (session info)
-  │   ├── ./adaptive_landscapes                            
-  │   │   ├── adaptive.landscape.calculation.R               # Calculates the 2d-adaptive landscape for Darwin's 
-  │   │   │                                                  # finches based on the fitness landscape 
-  │   │   └── gif.walking.adaptive.landscape.R               # Generate a GIF on how to compute adaptive landscapes 
-  │   ├── ./climate                                        
-  │   │   └── climate.analysis.R                             # Compute sum precipitation per month for all years in
-  │   │                                                      # study and climate high- lowland G. fuliginosa image
-  │   ├── ./CMR                                            
-  │   │   └── cmr.test.R                                     # Capture-Mark-Recapture calculation on the data 
-  │   ├── ./fitness_surfaces                               
-  │   │   ├── fit.land.analysis.R                            # Prepare the data for GAM and prints tables
-  │   │   ├── fit.land.analysis_2.R                          # GAM fitting 
-  │   │   ├── fit.land.analysis_3.R                          # Plot fitness landscape, euclidean distance on 
-  │   │   │                                                  # landscape, find fitness maxima, prospective 
-  │   │   │                                                  # selection, tables of walk on the fitness landscape 
-  │   │   ├── fit.land.walk.R                                # Figures of the walk on the fitness landscape 
-  │   │   │                                                  # (showing valleys and peaks)
-  │   │   └── plot_fitness_no_model.R                        # Plot fitness landscape using a smoothed average of 
-  │   │                                                      # raw fitness values across all phenotypic 
-  │   │                                                      # combinations for raw values. 
-  │   ├── ./functions                                      
-  │   │   ├── 00_info_session.R                              # Prints packages used and operating system in file 
-  │   │   └── 0.1_misc.R                                     # More helper functions 
-  │   │   ├── cor_fun.R                                      # Used for ggpairs in fit.land.analysis.R
-  │   │   ├── euclidean_dist.R                               # Used to calculate the euclidean distance and get 
-  │   │   │                                                  # the angle between vectors in fit.land.analysis_3.R
-  │   │   ├── intersect.lines.R                              # Draw perpendicular lines in a plot for prospective 
-  │   │   │                                                  # selection in fit.land.analysis_3.R
-  │   │   ├── isolate_surface.R                              # Helper function to find fitness maxima on a surface 
-  │   │   │                                                  # in R in fit.land.analysis_3.R
-  │   │   └── plot_gams.R                                    # Plots gam output as surface and collects data of the 
-  │   │                                                      # surface and its standard error
-  │   ├── ./maps                                           
-  │   │   └── Maps sites Galapagos drawing net and sites.R   # Generates maps of islands, and mistnets locations 
-  │   └── Repeat.R                                           # Repeatability measures 
   │
   └── [...] Miscellaneous files                              # LICENSE, .Rproj, .gitignore... 
+
 ```
 
 ##################################
