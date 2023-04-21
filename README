@@ -10,63 +10,63 @@ v.00001.2023-04-04
 ##################################
 
 1. Title of Dataset: 
-	Data from: The fitness landscape of a community of Darwin’s finches 
+  Data from: The fitness landscape of a community of Darwin’s finches 
 
 2. Author Information
-	Corresponding Investigator 
-		Name: Marc-Olivier Beausoleil 
-		Institution: McGill University
-		Email: marc-olivier.beausoleil@mail.mcgill.ca
+  Corresponding Investigator 
+    Name: Marc-Olivier Beausoleil 
+    Institution: McGill University
+    Email: marc-olivier.beausoleil@mail.mcgill.ca
 
-	Co-investigators
-		Name:						Institution:
-		Paola Carrión-Avilés		McGill University
-		Jeffrey Podos				University of Massachusetts Amherst
-		Carlos Camacho				Estación Biológica de Doñana—CSIC
-		Julio Rabadán-González		Observation.org
-		Roxanne Richard				McGill University
-		Kristen Lalla				McGill University
-		Joost A. M. Raeymaekers		Nord University
-		Sarah A. Knutie				University of Connecticut
-		Luis F. De León				University of Massachusetts Boston
-		Jaime A. Chaves				San Francisco State University
-		Dale H. Clayton				University of Utah
-		Jennifer A. H. Koop			Northern Illinois University
-		Diana M. T. Sharpe			Worcester State University
-		Kiyoko M. Gotanda			McGill University 
-		Sarah K. Huber				Virginia Institute of Marine Science
-		Rowan D. H. Barrett			McGill University
-		Andrew P. Hendry			McGill University
+  Co-investigators
+    Name:                    Institution:
+    Paola Carrión-Avilés     McGill University
+    Jeffrey Podos            University of Massachusetts Amherst
+    Carlos Camacho           Estación Biológica de Doñana—CSIC
+    Julio Rabadán-González   Observation.org
+    Roxanne Richard          McGill University
+    Kristen Lalla            McGill University
+    Joost A. M. Raeymaekers  Nord University
+    Sarah A. Knutie          University of Connecticut
+    Luis F. De León          University of Massachusetts Boston
+    Jaime A. Chaves          San Francisco State University
+    Dale H. Clayton          University of Utah
+    Jennifer A. H. Koop      Northern Illinois University
+    Diana M. T. Sharpe       Worcester State University
+    Kiyoko M. Gotanda        McGill University 
+    Sarah K. Huber           Virginia Institute of Marine Science
+    Rowan D. H. Barrett      McGill University
+    Andrew P. Hendry         McGill University
 
 3. Date of data collection: 
-	2003-2020
+  2003-2020
 
 4. Geographic location of data collection: 
-	El Garrapatero, Santa Cruz Island, Galápagos, Ecuador (0°41'22.9" S, 90°13'19.7" W)
+  El Garrapatero, Santa Cruz Island, Galápagos, Ecuador (0°41'22.9" S, 90°13'19.7" W)
 
 5. Funding sources that supported the collection of the data: 
-	Natural Sciences and Engineering Research Council of Canada (NSERC) Discovery Grant and a Canada Research Chair (A.P.H.)
-	University of Cambridge (Clare Hall, Christ's College, and Newnham College), 
-	British Ornithologists Union, a European Society for Evolutionary Biology Godfrey Hewitt Mobility Award, NSERC Vanier and Banting Fellowships, and an FQRNT Postdoctoral Fellowship. (K.M.G.)
-	Field work was supported by Earthwatch in 2014 and 2015. 
-	NSERC Discovery Grant and Canada Research Chair (R.D.H.B.)
-	NSERC Canada Graduate Scholarship, Biodiversity, Ecosystem Services and Sustainability (BESS) NSERC CREATE (M.-O.B.)
-	Fonds de recherche du Québec, Nature et technologies Scholarship (M.-O.B.)
-	National Geographic Young Explorers Grants grant (#WW-170ER-17) (M.-O.B.)
-	Awards given by the Quebec Centre for Biodiversity Science (M.-O.B.)
+  Natural Sciences and Engineering Research Council of Canada (NSERC) Discovery Grant and a Canada Research Chair (A.P.H.)
+  University of Cambridge (Clare Hall, Christ's College, and Newnham College), 
+  British Ornithologists Union, a European Society for Evolutionary Biology Godfrey Hewitt Mobility Award, NSERC Vanier and Banting Fellowships, and an FQRNT Postdoctoral Fellowship. (K.M.G.)
+  Field work was supported by Earthwatch in 2014 and 2015. 
+  NSERC Discovery Grant and Canada Research Chair (R.D.H.B.)
+  NSERC Canada Graduate Scholarship, Biodiversity, Ecosystem Services and Sustainability (BESS) NSERC CREATE (M.-O.B.)
+  Fonds de recherche du Québec, Nature et technologies Scholarship (M.-O.B.)
+  National Geographic Young Explorers Grants grant (#WW-170ER-17) (M.-O.B.)
+  Awards given by the Quebec Centre for Biodiversity Science (M.-O.B.)
 
 
 6. Keywords
-	Darwin’s finches, Geospiza, 
-	Adaptive landscapes, 
-	Speciation, 
-	Adaptive radiation, 
-	Galápagos Santa Cruz, 
-	Ecological theory, 
-	fitness landscape
+  Darwin’s finches, Geospiza, 
+  Adaptive landscapes, 
+  Speciation, 
+  Adaptive radiation, 
+  Galápagos Santa Cruz, 
+  Ecological theory, 
+  fitness landscape
 
 7. Recommended citation for this dataset: 
-	Beausoleil, M.-O. et al. (2023), TITLE, Dryad, Dataset, https://doi.org/XXXX
+  Beausoleil, M.-O. et al. (2023), TITLE, Dryad, Dataset, https://doi.org/XXXX
 
 
 ##################################
@@ -77,170 +77,170 @@ v.00001.2023-04-04
   
   The data files are described using the folder structure below
     - adaptive.landscapes.finches.zip contains ./data, ./output, ./script folders and LICENSE file.
-	
-	The dataset and script were developed to 
-		1. Estimate the fitness landscape for Darwin's ground finch species (Geospiza spp.) at El Garrapatero over 2003 to 2020. 
-		2. Consider theoretical expectations and previous empirical assertions regarding the topology of fitness and adaptive landscapes. 
+  
+  The dataset and script were developed to 
+    1. Estimate the fitness landscape for Darwin's ground finch species (Geospiza spp.) at El Garrapatero over 2003 to 2020. 
+    2. Consider theoretical expectations and previous empirical assertions regarding the topology of fitness and adaptive landscapes. 
 
-		We used the data from our long-term monitoring site El Garrapatero on Santa Cruz in the Galápagos, Ecuador. 
-		We calculated lifespan as a fitness proxi from our recapture data to construct a fitness and adaptive landscape using the beak length and depth. 
-		The scripts and data and for the R language (R Core Team 2023; R version, 4.2.1 (Funny-Looking Kid)). 
+    We used the data from our long-term monitoring site El Garrapatero on Santa Cruz in the Galápagos, Ecuador. 
+    We calculated lifespan as a fitness proxi from our recapture data to construct a fitness and adaptive landscape using the beak length and depth. 
+    The scripts and data and for the R language (R Core Team 2023; R version, 4.2.1 (Funny-Looking Kid)). 
 
 2. Folder content structure and file List: 
 ## Note: 
-	- Folders are noted with "./folder_name"
-	- File are shown with an extension such as: 
-		- .csv:		Comma separated values
-		- .gpkg:	GeoPackage (read with `sf::st_read()` function)
-		- .gif:		Graphics Interchange Format
-		- .json:	JavaScript Object Notation
-		- .pdf:		Portable Document Format
-		- .png:		Portable Network Graphics
-		- .R:		R script
-		- .RDS:		Stores a singe R object (read with `base::readRDS()` function)
-		- .RData:	Stores multiple R object (read with `base::load()` function)
-		- .txt:		text file 
-		- .Rproj:	project file 
+  - Folders are noted with "./folder_name"
+  - File are shown with an extension such as: 
+    - .csv:    Comma separated values
+    - .gpkg:  GeoPackage (read with `sf::st_read()` function)
+    - .gif:    Graphics Interchange Format
+    - .json:  JavaScript Object Notation
+    - .pdf:    Portable Document Format
+    - .png:    Portable Network Graphics
+    - .R:    R script
+    - .RDS:    Stores a singe R object (read with `base::readRDS()` function)
+    - .RData:  Stores multiple R object (read with `base::load()` function)
+    - .txt:    text file 
+    - .Rproj:  project file 
   
   
  ```
-	## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## 
-	├── README                                                     # This file! 
+  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## 
+  ├── README                                                     # This file! 
 
 
 
-	## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## 
-	├── ./data                                                    # (folder)
-	│   ├── bird.data.RData                                         # Main dataset for capture-recapture of birds at El Garrapatero, Santa Cruz Island.  
-	│   ├── ./climate                                             # (folder)
-	│       ├── climate_puerto-ayora_V.XXXX-XX-XX.csv               # Meteorological station data (including precipitation) from https://www.darwinfoundation.org/en/datazone/climate/puerto-ayora 
-	│       ├── ./ENSO                                            # (folder)
-	│           └── oni.ascii_V.XXXX-XX-XX.txt                      # Oceanic Niño Index found at https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt
-	│       ├── ./Kleindorfer.et.al._2006                         # (folder)
-	│           ├── H.L.lands.fig3.Kleindorfer.2006.png             # figure 3 from Kleindorfer et. al. 2006 
-	│           ├── H.L.lands.fig3.Kleindorfer.2006.csv             # Extracted data from figure 3 from Kleindorfer et. al. 2006 using WebPlotDigitizer
-	│           └── Kleindorfer.et.al.2006.WebPlotDigitizer.json    # WebPlotDigitizer data file 
-	│   ├── ./maps                                                # (folder)
-	│       ├── Galapagos.EG.nets.csv                               # Approximate mistnet GPS position at El Garrapatero
-	│       ├── galapagos.gis.gpkg                                  # Geopackage with 2 layers: 1. polygon of all islands, 2. line string of roads on all islands 
-	│       └── map.back.gpkg                                       # Geopackage containing map polygon for background of maps 
-	
-	
-	
-	## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## 
-	├── ./output                                             # (folder)
-	│   ├── ./adaptive_land.animation                        # (folder)
-	│       └── ./_fitplot.gif                               # (folder) contains images to construct a GIF on how to calcualte an adaptive landscape 
-	|           └── [...] Miscellaneous files                  # files for .gif construction 
-	│   ├── ./data.out                                       # (folder)
-	│       ├── ./adpt_land.sp                               # (folder) 
-	│           ├── all.sp_EG.RDS                              # Adaptive landscape data 
-	│       ├── ./fitness.landscape.data                     # (folder)
-	│         ├── all.local.max_pca.RDS                        # Phenotypic position and value of fitness local maxima for all species (PCA traits)
-	│         ├── all.local.max.RDS                            # Phenotypic position and value of fitness local maxima for all species (beak traits)
-	│         ├── fitness.summary.RDS                          # Combination of all.local.max and w.data
-	│         ├── min.fit.sca.comp.RDS                         # Walking the fitness surface fitness-peak between species: Peak to peak measurements 
-	│         ├── summ.mean.traits.RDS                         # Summary of the beak and body traits YEARLY (in fit.land.analysis.R)
-	│         ├── w.data.RDS                                   # Average and predicted fitness at trait average (and average + sd of beak traits)
-	│       ├── ./ggplot_data                                # (folder) 
-	│           ├── ggp.fit.no.model.RDS                       # ggplot data for fitness landscape without model 
-	│       ├── ./landscape_data                             # (folder) 
-	│           ├── my.persp.data_pca.RDS                      # Data from plot.gam.cust() function using GAM with PCA traits
-	│           ├── my.persp.data.RDS                          # Data from plot.gam.cust() function using GAM with beak traits
-	│       ├── ./tables                                     # (folder) 
-	│           ├── between.species.pheno.eucli.csv                # Euclidean distance of each mode for pairwise mean phenotypes (lower portion) and for pairwise G-transformed mean phenotypes (upper portion). 
-	│           ├── euclidean.csv                                  # table of Euclidean distances of population mean to the position of the peaks on the fitness
-	│           ├── fitness.diff.within.species.adaptive.walk.csv  # Percentage fitness loss from fitness peak and fitness at phenotypic mean
-	│           ├── fitness.landscape.features.csv                 # Percentage fitness loss from fitness peak and fitness at phenotypic mean
-	│           ├── pca.loadings_EG.csv                            # Principal component analysis loadings 
-	│           ├── recapnumber_EG.csv                             # Recapture data at El Garrapatero
-	│           └── sampling.effort.sampling.range_EG.csv          # Sampling effort for the ground finches studied with minimum and maximum date of visit and number of individual of each species captured. 
-	│   ├── ./images                                                                # (folder)
-	│           ├── ./climate                                                       # (folder)
-	│               ├── fuliginosa.beak.length.precipitation.png                      # Precipitation pattern associated with High- lowlands for G. fuliginosa
-	│               ├── precipitation.Puerto.ayora.el.nino.la.nina.png                # Precipitation pattern for the length of the study with ONI El Nino and La Nina 
-	│           ├── ./data_exploration                                              # (folder) 
-	│               ├── density.traits_and_pca_EG.png                                 # Density of birds for beak and PC traits 
-	│               ├── effort.plot.per.species_EG.png                                # Number of captures of Darwin's finches for the study system 
-	│               ├── pairs.traits_EG.png                                           # Pairs plot for all beak, body and PCA traits
-	│           ├── ./landscape_plots                                               # (folder) 
-	│               ├── fit.surf.adapt.land.simulations_complete_single_ggpt_EG.pdf   # Fitness landscape without model, with GAM and adaptive landscape for all finches
-	│               ├── fit.surf.PCA_ggpt_EG.png                                      # Fitness landscape with PCA traits 
-	│               ├── fit.surf.walk_ggpt_EG.png                                     # Walking on the fitness landscape and valleys between peaks of different species and between peak and phenotypic average within species 
-	│               ├── fit.surf.yr.chg_ggpt_EG.png                                   # Fitness landscape with phenotypic average in every year 
-	│               ├── fitplot.average.change_se_ggplt_EG.png                        # Standard error of fitness landscape
-	│           ├── ./maps                                                          # (folder) 
-	│               ├── santa_Cruz_and_sampling_area_EG.png                           # Figure of Santa Cruz island and sampling sites 
-	│           └── prospective_selection_EG.png                                      # Figure of prospective selection 
-	│   ├── ./model.out                                      # (folder)
-	│       ├── poisson.spline.model_EG.RDS                    # GAM model for beak traits   
-	│       ├── poisson.spline.model_pca.RDS                   # GAM model for PC traits 
-	│       └── spline.model.parameters.csv                    # Parameters of spline model for beak traits
-	│   ├── ./session_info                                   # (folder)
-	│       └── session_information.txt                        # R Session information for packages and operating system 
-	
-	
-	
-	## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## 
-	├── ./scripts                                            # (folder)
-	│   ├── 00_a.runall.R                                      # Script to source all the other scripts in order 
-	│   ├── 0.0_initialize.R                                   # Contains packages and custom functions, runs session information 
-	│   ├── ./adaptive_landscapes                            # (folder)
-	│       ├── adaptive.landscape.calculation.R               # Calculates the 2d-adaptive landscape for Darwin's finches based on the fitness landscape 
-	│       └── gif.walking.adaptive.landscape.R               # Generate a GIF showing how to compute an adaptive landscape 
-	│   ├── ./climate                                        # (folder)
-	│       ├── climate.analysis.R                             # Compute the sum precipitation per month (mm) for all years in the study and the climate high- lowland G. fuliginosa image
-	│   ├── ./CMR                                            # (folder)
-	│       └── cmr.test.R                                     # Capture-Mark-Recapture calculation on the data 
-	│   ├── ./fitness_surfaces                               # (folder)
-	│       ├── fit.land.analysis.R                            # Prepare the data for GAM and prints tables
-	│       ├── fit.land.analysis_2.R                          # GAM fitting 
-	│       ├── fit.land.analysis_3.R                          # Plot fitness landscape, euclidean distance on the landscape, find fitness maxima, prospective selection, tables of the walk on the fitness landscape 
-	│       ├── fit.land.walk.R                                # Figures of the walk on the fitness landscape (showing valleys and peaks)
-	│       └── plot_fitness_no_model.R                        # Plot fitness landscape using a smoothed average of raw fitness values across all phenotypic combinations for raw values. 
-	│   ├── ./functions                                      # (folder)
-	│       ├── 00_info_session.R                              # Prints the packages used and the operating system in a file 
-	│       └── 0.1_misc.R                                     # More helper functions 
-	│       ├── cor_fun.R                                      # Used for ggpairs in fit.land.analysis.R
-	│       ├── euclidean_dist.R                               # Used to calculate the euclidean distance and get the angle between vectors in fit.land.analysis_3.R
-	│       ├── intersect.lines.R                              # Draw perpendicular lines in a plot for prospective selection in fit.land.analysis_3.R
-	│       ├── isolate_surface.R                              # Helper function to find fitness maxima on a surface in R in fit.land.analysis_3.R
-	│       ├── plot_gams.R                                    # Plots gam output as surface and collects data of the surface and its standard error (modified from the `vis.gam` function in MGCV). 
-	│   ├── ./maps                                           # (folder)
-	│       └── Maps sites Galapagos drawing net and sites.R   # Generates maps of islands, and sites with mistnets locations 
-	│   ├── Repeat.R                                           # Repeatability measures 
-	
-	└── [...] Miscellaneous files                              # LICENSE, .Rproj, .gitignore... 
+  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## 
+  ├── ./data                                                    # (folder)
+  │   ├── bird.data.RData                                         # Main dataset for capture-recapture of birds at El Garrapatero, Santa Cruz Island.  
+  │   ├── ./climate                                             # (folder)
+  │       ├── climate_puerto-ayora_V.XXXX-XX-XX.csv               # Meteorological station data (including precipitation) from https://www.darwinfoundation.org/en/datazone/climate/puerto-ayora 
+  │       ├── ./ENSO                                            # (folder)
+  │           └── oni.ascii_V.XXXX-XX-XX.txt                      # Oceanic Niño Index found at https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt
+  │       ├── ./Kleindorfer.et.al._2006                         # (folder)
+  │           ├── H.L.lands.fig3.Kleindorfer.2006.png             # figure 3 from Kleindorfer et. al. 2006 
+  │           ├── H.L.lands.fig3.Kleindorfer.2006.csv             # Extracted data from figure 3 from Kleindorfer et. al. 2006 using WebPlotDigitizer
+  │           └── Kleindorfer.et.al.2006.WebPlotDigitizer.json    # WebPlotDigitizer data file 
+  │   ├── ./maps                                                # (folder)
+  │       ├── Galapagos.EG.nets.csv                               # Approximate mistnet GPS position at El Garrapatero
+  │       ├── galapagos.gis.gpkg                                  # Geopackage with 2 layers: 1. polygon of all islands, 2. line string of roads on all islands 
+  │       └── map.back.gpkg                                       # Geopackage containing map polygon for background of maps 
+  
+  
+  
+  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## 
+  ├── ./output                                             # (folder)
+  │   ├── ./adaptive_land.animation                        # (folder)
+  │       └── ./_fitplot.gif                               # (folder) contains images to construct a GIF on how to calcualte an adaptive landscape 
+  |           └── [...] Miscellaneous files                  # files for .gif construction 
+  │   ├── ./data.out                                       # (folder)
+  │       ├── ./adpt_land.sp                               # (folder) 
+  │           ├── all.sp_EG.RDS                              # Adaptive landscape data 
+  │       ├── ./fitness.landscape.data                     # (folder)
+  │         ├── all.local.max_pca.RDS                        # Phenotypic position and value of fitness local maxima for all species (PCA traits)
+  │         ├── all.local.max.RDS                            # Phenotypic position and value of fitness local maxima for all species (beak traits)
+  │         ├── fitness.summary.RDS                          # Combination of all.local.max and w.data
+  │         ├── min.fit.sca.comp.RDS                         # Walking the fitness surface fitness-peak between species: Peak to peak measurements 
+  │         ├── summ.mean.traits.RDS                         # Summary of the beak and body traits YEARLY (in fit.land.analysis.R)
+  │         ├── w.data.RDS                                   # Average and predicted fitness at trait average (and average + sd of beak traits)
+  │       ├── ./ggplot_data                                # (folder) 
+  │           ├── ggp.fit.no.model.RDS                       # ggplot data for fitness landscape without model 
+  │       ├── ./landscape_data                             # (folder) 
+  │           ├── my.persp.data_pca.RDS                      # Data from plot.gam.cust() function using GAM with PCA traits
+  │           ├── my.persp.data.RDS                          # Data from plot.gam.cust() function using GAM with beak traits
+  │       ├── ./tables                                     # (folder) 
+  │           ├── between.species.pheno.eucli.csv                # Euclidean distance of each mode for pairwise mean phenotypes (lower portion) and for pairwise G-transformed mean phenotypes (upper portion). 
+  │           ├── euclidean.csv                                  # table of Euclidean distances of population mean to the position of the peaks on the fitness
+  │           ├── fitness.diff.within.species.adaptive.walk.csv  # Percentage fitness loss from fitness peak and fitness at phenotypic mean
+  │           ├── fitness.landscape.features.csv                 # Percentage fitness loss from fitness peak and fitness at phenotypic mean
+  │           ├── pca.loadings_EG.csv                            # Principal component analysis loadings 
+  │           ├── recapnumber_EG.csv                             # Recapture data at El Garrapatero
+  │           └── sampling.effort.sampling.range_EG.csv          # Sampling effort for the ground finches studied with minimum and maximum date of visit and number of individual of each species captured. 
+  │   ├── ./images                                                                # (folder)
+  │           ├── ./climate                                                       # (folder)
+  │               ├── fuliginosa.beak.length.precipitation.png                      # Precipitation pattern associated with High- lowlands for G. fuliginosa
+  │               ├── precipitation.Puerto.ayora.el.nino.la.nina.png                # Precipitation pattern for the length of the study with ONI El Nino and La Nina 
+  │           ├── ./data_exploration                                              # (folder) 
+  │               ├── density.traits_and_pca_EG.png                                 # Density of birds for beak and PC traits 
+  │               ├── effort.plot.per.species_EG.png                                # Number of captures of Darwin's finches for the study system 
+  │               ├── pairs.traits_EG.png                                           # Pairs plot for all beak, body and PCA traits
+  │           ├── ./landscape_plots                                               # (folder) 
+  │               ├── fit.surf.adapt.land.simulations_complete_single_ggpt_EG.pdf   # Fitness landscape without model, with GAM and adaptive landscape for all finches
+  │               ├── fit.surf.PCA_ggpt_EG.png                                      # Fitness landscape with PCA traits 
+  │               ├── fit.surf.walk_ggpt_EG.png                                     # Walking on the fitness landscape and valleys between peaks of different species and between peak and phenotypic average within species 
+  │               ├── fit.surf.yr.chg_ggpt_EG.png                                   # Fitness landscape with phenotypic average in every year 
+  │               ├── fitplot.average.change_se_ggplt_EG.png                        # Standard error of fitness landscape
+  │           ├── ./maps                                                          # (folder) 
+  │               ├── santa_Cruz_and_sampling_area_EG.png                           # Figure of Santa Cruz island and sampling sites 
+  │           └── prospective_selection_EG.png                                      # Figure of prospective selection 
+  │   ├── ./model.out                                      # (folder)
+  │       ├── poisson.spline.model_EG.RDS                    # GAM model for beak traits   
+  │       ├── poisson.spline.model_pca.RDS                   # GAM model for PC traits 
+  │       └── spline.model.parameters.csv                    # Parameters of spline model for beak traits
+  │   ├── ./session_info                                   # (folder)
+  │       └── session_information.txt                        # R Session information for packages and operating system 
+  
+  
+  
+  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## 
+  ├── ./scripts                                            # (folder)
+  │   ├── 00_a.runall.R                                      # Script to source all the other scripts in order 
+  │   ├── 0.0_initialize.R                                   # Contains packages and custom functions, runs session information 
+  │   ├── ./adaptive_landscapes                            # (folder)
+  │       ├── adaptive.landscape.calculation.R               # Calculates the 2d-adaptive landscape for Darwin's finches based on the fitness landscape 
+  │       └── gif.walking.adaptive.landscape.R               # Generate a GIF showing how to compute an adaptive landscape 
+  │   ├── ./climate                                        # (folder)
+  │       ├── climate.analysis.R                             # Compute the sum precipitation per month (mm) for all years in the study and the climate high- lowland G. fuliginosa image
+  │   ├── ./CMR                                            # (folder)
+  │       └── cmr.test.R                                     # Capture-Mark-Recapture calculation on the data 
+  │   ├── ./fitness_surfaces                               # (folder)
+  │       ├── fit.land.analysis.R                            # Prepare the data for GAM and prints tables
+  │       ├── fit.land.analysis_2.R                          # GAM fitting 
+  │       ├── fit.land.analysis_3.R                          # Plot fitness landscape, euclidean distance on the landscape, find fitness maxima, prospective selection, tables of the walk on the fitness landscape 
+  │       ├── fit.land.walk.R                                # Figures of the walk on the fitness landscape (showing valleys and peaks)
+  │       └── plot_fitness_no_model.R                        # Plot fitness landscape using a smoothed average of raw fitness values across all phenotypic combinations for raw values. 
+  │   ├── ./functions                                      # (folder)
+  │       ├── 00_info_session.R                              # Prints the packages used and the operating system in a file 
+  │       └── 0.1_misc.R                                     # More helper functions 
+  │       ├── cor_fun.R                                      # Used for ggpairs in fit.land.analysis.R
+  │       ├── euclidean_dist.R                               # Used to calculate the euclidean distance and get the angle between vectors in fit.land.analysis_3.R
+  │       ├── intersect.lines.R                              # Draw perpendicular lines in a plot for prospective selection in fit.land.analysis_3.R
+  │       ├── isolate_surface.R                              # Helper function to find fitness maxima on a surface in R in fit.land.analysis_3.R
+  │       ├── plot_gams.R                                    # Plots gam output as surface and collects data of the surface and its standard error (modified from the `vis.gam` function in MGCV). 
+  │   ├── ./maps                                           # (folder)
+  │       └── Maps sites Galapagos drawing net and sites.R   # Generates maps of islands, and sites with mistnets locations 
+  │   ├── Repeat.R                                           # Repeatability measures 
+  
+  └── [...] Miscellaneous files                              # LICENSE, .Rproj, .gitignore... 
 ```
 
 ##################################
 ### METHODOLOGICAL INFORMATION ###
 ##################################
 
- 	Please refer to the article. 
- 	
- 	The main data file is `bird.data.RData` which contains 3428 rows and 64 columns. 
- 		- Each row correspond to a bird tagged with a unique Monel band (BANDFINAL). 
- 		- Species information is given in Species1, sp2, and sp2.fct. 
- 		- Beak measurements were taken multiple times (Beak.{Length, Depth, Width}.{A, B, C}) 
- 			- The median beak traits was calculated and stored in 'Median{beak trait}'
- 			- If a bird was recaptured and measure more than once, an average of all median beak measurements is recorded in avg.{mbl, mbw, or mbd}. 
- 		- Body measurements are in Tarsus, Wing.Chord, and Mass. 
- 		- A capture history (ch) is provided along a 'corrected' version of the capture history: 
- 			- when a bird was capture at time T and seen at time T+2 but not seen in T+1, the corrected ch 'fills' the T+1 with a infered 'observation'. 
- 		- The fitness measure is in mxcpois which is the last year a bird was captured minus the first year (or maximum count - 1).
- 		- GPS location of mistnet locations and sites in `Galapagos.EG.nets.csv`
- 		- For maps:
- 			- `galapagos.gis.gpkg` contains the Galapagos island contour and known roads
- 			- `map.back.gpkg` contains polygons of land features at El Garrapatero. 
- 		
- 	Other datasets: 
- 	The precipitation data `climate_puerto-ayora_V.2023-04-19.csv`: 
- 		- Source: https://www.darwinfoundation.org/images/climate/climate_puerto-ayora.csv
- 	The ENSO data `oni.ascii_V.2023-04-21.txt`
- 		- Source: https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt
- 	The highland and lowland G. fuliginosa data `H.L.lands.fig3.Kleindorfer.2006.csv` 
- 		- Source: Figure 3 from Kleindorfer et. al. 2006 
+   Please refer to the article. 
+   
+   The main data file is `bird.data.RData` which contains 3428 rows and 64 columns. 
+     - Each row correspond to a bird tagged with a unique Monel band (BANDFINAL). 
+     - Species information is given in Species1, sp2, and sp2.fct. 
+     - Beak measurements were taken multiple times (Beak.{Length, Depth, Width}.{A, B, C}) 
+       - The median beak traits was calculated and stored in 'Median{beak trait}'
+       - If a bird was recaptured and measure more than once, an average of all median beak measurements is recorded in avg.{mbl, mbw, or mbd}. 
+     - Body measurements are in Tarsus, Wing.Chord, and Mass. 
+     - A capture history (ch) is provided along a 'corrected' version of the capture history: 
+       - when a bird was capture at time T and seen at time T+2 but not seen in T+1, the corrected ch 'fills' the T+1 with a infered 'observation'. 
+     - The fitness measure is in mxcpois which is the last year a bird was captured minus the first year (or maximum count - 1).
+     - GPS location of mistnet locations and sites in `Galapagos.EG.nets.csv`
+     - For maps:
+       - `galapagos.gis.gpkg` contains the Galapagos island contour and known roads
+       - `map.back.gpkg` contains polygons of land features at El Garrapatero. 
+     
+   Other datasets: 
+   The precipitation data `climate_puerto-ayora_V.2023-04-19.csv`: 
+     - Source: https://www.darwinfoundation.org/images/climate/climate_puerto-ayora.csv
+   The ENSO data `oni.ascii_V.2023-04-21.txt`
+     - Source: https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt
+   The highland and lowland G. fuliginosa data `H.L.lands.fig3.Kleindorfer.2006.csv` 
+     - Source: Figure 3 from Kleindorfer et. al. 2006 
 
 ##################################
 ########### REFERENCES ###########
