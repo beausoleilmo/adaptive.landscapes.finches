@@ -82,6 +82,7 @@ ggp.fit.no.model = ggplot(data = gd.pt,
         legend.text = element_text(size = text.size),
         legend.title = element_text(size = text.size),
         legend.key = element_rect(fill = "white", color = "grey80"), 
+        # legend.position = "bottom",
         plot.tag =element_text(face = "bold", size = 18),
         strip.background =element_rect(fill="white", colour = "white"),
         strip.text = element_text(colour = 'black', size = 13),
@@ -91,8 +92,103 @@ ggp.fit.no.model = ggplot(data = gd.pt,
        y = "Beak depth (mm)", 
        size = 12, alpha = 1); ggp.fit.no.model
 
-cat(paste("Saving ggplot to file", paste("output/data.out/ggplot_data/ggp.fit.no.model.RDSgp.fit.no.model.RDS")), 
+
+# Marginal rug plot ------------------------------------------------------------------------------------------
+mul.cex = 1
+ggp.fit.no.model.points = ggp.fit.no.model + 
+  geom_point(data = bird.data, 
+             mapping = aes(x = avg.mbl,
+                           y = avg.mbd, 
+                           col = sp2.fct), 
+             alpha = 0.05,
+             shape = 19, #".", # if use ".", size you should increase the size of points
+             show.legend = FALSE,
+             size = ifelse(bird.data$mxcpois == 0, 
+                           yes = .7, 
+                           no = bird.data$mxcpois/max(bird.data$mxcpois)*mul.cex)) +
+  # Add tick marks called 'rugs' to show the density of 
+  # points compact visualisation of marginal distributions 
+  geom_rug(data = bird.data, 
+           mapping = aes(x = avg.mbl,
+                         y = avg.mbd, 
+                         col = sp2.fct), 
+           show.legend = FALSE,
+           alpha = .1) +
+  guides(#fill = guide_legend(order = 1), 
+         colour = guide_legend(order = 2, ncol=1,
+                               override.aes = list(size = 3, 
+                                                   alpha = 1))) +
+  scale_color_manual(values = pal, 
+                     name = "Species",
+                     labels = c(bquote(italic("G. fuliginosa")),
+                                bquote(italic("G. fortis")*" small"),
+                                bquote(italic("G. fortis")*" large"),
+                                bquote(italic("G. magnirostris")),
+                                bquote(italic("G. scandens"))
+                     ));ggp.fit.no.model.points
+
+
+# Marginal plots manual density ------------------------------------------------------------------------------
+# Add density plot directly to ggplot 
+ggp.fit.no.model.points + 
+  # Making more space for the density plots 
+  coord_cartesian(xlim = c(min(bird.data$avg.mbl), ceiling(max(bird.data$avg.mbl))+1),
+                  ylim = c(min(bird.data$avg.mbd), ceiling(max(bird.data$avg.mbd))+1)) +
+  # Adding and moving the density plot 
+  geom_density(data = bird.data, 
+               mapping = aes(y = avg.mbd, 
+                             col = sp2.fct),
+               position = position_nudge(x = max(bird.data$avg.mbl)+.1),
+               inherit.aes = FALSE) +
+  geom_density(data = bird.data,
+               mapping = aes(x = avg.mbl,
+                             col = sp2.fct),
+               position = position_nudge(y = max(bird.data$avg.mbd)+.1),
+               inherit.aes = FALSE)
+  
+# Marginal plots with cowplot -------------------------------------------------------------------------------
+# Allows for more control since plotting full GGPLOTS in a grid 
+
+# Cleaning the main plots by removing the legend 
+sp <- ggp.fit.no.model.points + rremove("legend") 
+
+# Making density plot for x axis
+xplot <- ggdensity(data = bird.data, x = "avg.mbl", fill = "sp2.fct", palette = pal) + 
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank())
+
+# Making density plot for y axis. Note that we are providing X values, but ROTATING the plot 
+yplot <- ggdensity(data = bird.data, x = "avg.mbd", fill = "sp2.fct", palette = pal) + 
+  theme(axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  rotate()
+
+# Remove legend and rename axes. In both cases, don't print x axis
+# labels as they are already present in the main plot 
+xplot <- xplot + rremove("legend") + labs(y = "Density", x = "") #+ clean_theme() 
+yplot <- yplot + rremove("legend") + labs(y = "Density", x = "") #+ clean_theme() 
+
+# Arranging the plot using cowplot
+cowplot::plot_grid(xplot, NULL, sp,
+          yplot, ncol = 2, align = "hv", 
+          rel_widths = c(5, 1), rel_heights = c(1, 5))
+
+# Marginal plots with ggExtra --------------------------------------------------------------------------------
+# Add histogram marginal plots with ggExtra
+ggp.fit.no.model.points.marginals = ggExtra::ggMarginal(ggp.fit.no.model.points, 
+                                                        type = "histogram", 
+                                                        groupColour = TRUE, groupFill = TRUE); ggp.fit.no.model.points.marginals
+
+
+# SAVING GGplots ---------------------------------------------------------------------------------------------
+cat(paste("Saving ggplot to file", 
+          paste("output/data.out/ggplot_data/ggp.fit.no.model.RDSgp.fit.no.model.RDS")), 
     fill = TRUE)
 
-saveRDS(object = ggp.fit.no.model, 
+ggsave(filename = paste("output/images/landscape_plots/fitplot.no.model_ggplt",ext.file,".png", sep = ""),
+       plot = ggp.fit.no.model.points, device = "png", units = "in", width = 12, height = 6)
+
+saveRDS(object = ggp.fit.no.model.points, 
         file = "output/data.out/ggplot_data/ggp.fit.no.model.RDS")
