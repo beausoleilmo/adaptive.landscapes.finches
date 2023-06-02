@@ -20,7 +20,7 @@
 # Install libraries only if needed ----------------------------------------------------------------------------
 # Source: https://stackoverflow.com/questions/4090169/elegant-way-to-check-for-missing-packages-and-install-them
 list.of.packages <- c("adehabitatHR","cowplot","data.table","faux","fields",
-                      "GA","GGally","ggnewscale","ggpubr","ggrepel","ggsignif",
+                      "GA","GGally","ggnewscale","ggpubr","ggrepel","ggsignif","ggExtra",
                       "ggspatial","grid","gridExtra","gss","kableExtra",
                       "lubridate","magick","mapview","marked","MASS","metR",
                       "mgcv","mixtools","parallel","plotly","readxl","rgdal",
@@ -64,6 +64,7 @@ library(ggspatial)    #
 library(ggpubr)       # 
 library(ggsignif)     # 
 library(ggrepel)      # 
+library(ggExtra)      # 
 library(grid)         # 
 
 
