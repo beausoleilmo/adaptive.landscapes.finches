@@ -121,12 +121,12 @@ AIC(gam3.pc.s)
 AIC(gam3.pqpois)
 
 # Absolute delta AIC
-abs(diff(c(AIC(gam3.pint),
+abs.diff.aic = abs(diff(c(AIC(gam3.pint),
            AIC(gam3.p1l), 
            AIC(gam3.p1ld), 
            AIC(gam3.p1ldi), 
            AIC(gam3.p1s), 
-           AIC(gam3.p))))
+           AIC(gam3.p))));abs.diff.aic
 
 ## Deviance ----------------------------------------------------------------
 deviance(gam3.pint)
@@ -148,13 +148,46 @@ deviance(gam3.pint) - deviance(gam3.p)
 AIC(gam3.pint) - AIC(gam3.p)
 
 # Anova table comparing different spline models 
-anova(gam3.pint, 
+anov.tab = anova(gam3.pint, 
       gam3.p1l, 
       gam3.p1ld, 
       gam3.p1ldi, 
       gam3.p1s, 
       gam3.p, 
-      test = "Chisq")
+      test = "Chisq");anov.tab
+# Clean the table 
+models = strsplit(x = attr(anov.tab, "heading")[2], split = "Model ")[[1]]
+models = models[nchar(models)>0]
+models = gsub(pattern = "\n", replacement = "", models)
+models = gsub(pattern = "avg.", replacement = "", models)
+models = gsub(pattern = "mxcpois", replacement = "y", models)
+
+# Make simple model vector to append to the anova table 
+models.simple = c("y ~ 1", 
+  "y ~ bl", 
+  "y ~ bl + bd", 
+  "y ~ bl * bd", 
+  "y ~ s(bl) + s(bd)", 
+  "y ~ s(bl) + s(bd) + s(bl, bd)")
+anov.tab.df = as.data.frame(anov.tab)
+# Add delta AIC
+anov.tab.df$abs.diff.aic = c(NA,abs.diff.aic)
+# Combine all columns 
+table.models = cbind(models.simple, 
+                     family = "poisson(log)",  
+                     round(anov.tab.df, 1))
+# Change the p-value column 
+table.models$`Pr(>Chi)` = ifelse(anov.tab.df$`Pr(>Chi)` < 0.00001, 
+                                 yes = "<<0.01", 
+                                 no = round(anov.tab.df$`Pr(>Chi)`, 4))
+# Make column names for publication 
+names(table.models) = c("Models†", "family(link)", "Residuals degrees of freedom", 
+                        "Residual deviance", "Degrees of freedom", "ΔDeviance","P-value", "ΔAIC")
+# Export table for publication 
+write.table(x = table.models, 
+            file = "output/model.out/GAM_model.selection.txt", 
+            sep = "\t",
+            quote = FALSE, row.names = FALSE, col.names = TRUE)
 
 # With pca 
 anova(gam3.pint, 
