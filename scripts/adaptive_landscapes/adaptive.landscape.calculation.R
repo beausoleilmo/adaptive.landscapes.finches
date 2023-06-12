@@ -197,7 +197,7 @@ ggp.fit.land = ggplot(data = fit.data,
         axis.text.x = element_text(size = text.size), 
         axis.text.y = element_text(size = text.size),
         plot.title = element_text(size = text.size),
-        legend.text = element_text(size = text.size),
+        legend.text = element_text(size = 10),
         legend.title = element_text(size = text.size),
         legend.key = element_rect(fill = "white", color = "grey80"), 
         plot.tag =element_text(face = "bold", size = 18),
@@ -231,6 +231,12 @@ new.gridy = data.frame(y = seq(6,18, by = 2*2))
 ggp.fit.land = ggp.fit.land + 
   geom_hline(data = new.gridy, aes(yintercept = y), colour = 'grey50', linetype = "dotted", linewidth = .25) +
   geom_vline(data = new.gridx, aes(xintercept = x), colour = 'grey50', linetype = "dotted", linewidth = .25)
+
+name.adap.file.rev1 = "fit.surf.rev1_ggpt"
+ggsave(filename = paste("output/images/landscape_plots/",name.adap.file.rev1,ext.file,".png", sep = ""),
+       device = "png",
+       plot = ggp.fit.land, units = "in", width = 7, height = 5)
+
 
 ## GGplot: ADAPTIVE LANDSCAPE  --------------------------------------------
 ada.data = cbind(expand.grid(all.sp$x, 
@@ -336,7 +342,8 @@ gg.fit.adapt = ggpubr::ggarrange(ggp.fit.no.model,
                                  ncol=1, common.legend = TRUE, legend = "right");gg.fit.adapt
 
 name.adap.file = "fit.surf.adapt.land.simulations_complete_single_ggpt"
-ggsave(filename = paste("output/images/landscape_plots/",name.adap.file,ext.file,".pdf", sep = ""),
+
+ggsave(filename = paste("output/images/landscape_plots/", name.adap.file, ext.file,".pdf", sep = ""),
        device = "pdf",
        plot = gg.fit.adapt, units = "in", width = 7, height = 13)
 
