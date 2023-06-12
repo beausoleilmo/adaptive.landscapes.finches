@@ -47,6 +47,27 @@ if (site.check == "El Garrapatero") {
   summary(gam3.p)
 }
 
+
+# Select on/off ----------------------------------------------------------------------------------------------
+# Demonstration of the effect of removing the 'select' argument from the model. 
+gam3.p.selectoff <- gam(mxcpois~s(avg.mbl, bs = "tp", k = k) + # k = 5
+                s(avg.mbd, bs = "tp", k = k)+ # k = 5
+                s(avg.mbl,avg.mbd, bs = "tp", k = 27), # k = 25
+              data=bird.data,
+              select=FALSE, 
+              method="REML", # see https://osf.io/wgc4f/wiki/mgcv:%20model%20selection/
+              family = poisson(link = "log")) 
+
+# PNG effect of select on landscape --------------------------------------------------------------------------
+png(filename = paste("output/images/landscape_plots/fitplot.3D_select",ext.file,".png", sep = ""),
+    width = 780,height = 480,units = "px", pointsize = 12)
+par(mfrow = c(1,2), mar = c(.1,1,1,1))
+vis.gam(gam3.p,main = "with select = TRUE", type = "response",theta=-80, phi=30,zlim = c(0,1.2),n.grid = 70)
+vis.gam(gam3.p.selectoff,main = "with select = FALSE", type = "response",theta=-80, phi=30,zlim = c(0,1.2),n.grid = 70)
+dev.off()
+par(mfrow = c(1,1))
+
+
 # Diagnostics -------------------------------------------------------------
 ## GAM model comparison ----------------------------------------------------
 gam3.pint <- gam(mxcpois~1,
@@ -60,6 +81,25 @@ gam3.p1s <- gam(mxcpois~s(avg.mbl, bs = "tp", k = 4) +
                 select=TRUE, 
                 method="REML", 
                 family = poisson(link = "log"))
+
+# Models with traits without smoothing
+# For comparison with the GAM with smoothing
+gam3.p1l <- gam(mxcpois~avg.mbl,
+                data=bird.data,
+                select=TRUE, 
+                method="REML", 
+                family = poisson(link = "log"))
+gam3.p1ld <- gam(mxcpois~avg.mbl + avg.mbd,
+                data=bird.data,
+                select=TRUE, 
+                method="REML", 
+                family = poisson(link = "log"))
+gam3.p1ldi <- gam(mxcpois~avg.mbl * avg.mbd,
+                data=bird.data,
+                select=TRUE, 
+                method="REML", 
+                family = poisson(link = "log"))
+
 gam3.pqpois <- gam(mxcpois~s(avg.mbl, bs = "tp", k = 4) +
                      s(avg.mbd, bs = "tp", k = 4)+
                      s(avg.mbl,avg.mbd, bs = "tp", k = 27),
@@ -73,29 +113,58 @@ AIC(gam3.pint) - AIC(gam3.p)
 
 AIC(gam3.pint)
 AIC(gam3.p1s)
+AIC(gam3.p1l)
+AIC(gam3.p1ld)
+AIC(gam3.p1ldi)
 AIC(gam3.p)
 AIC(gam3.pc.s)
 AIC(gam3.pqpois)
 
 # Absolute delta AIC
-abs(diff(c(AIC(gam3.pint),AIC(gam3.p1s), AIC(gam3.p))))
+abs(diff(c(AIC(gam3.pint),
+           AIC(gam3.p1l), 
+           AIC(gam3.p1ld), 
+           AIC(gam3.p1ldi), 
+           AIC(gam3.p1s), 
+           AIC(gam3.p))))
 
 ## Deviance ----------------------------------------------------------------
 deviance(gam3.pint)
+deviance(gam3.p1l)
+deviance(gam3.p1ld)
+deviance(gam3.p1ldi)
 deviance(gam3.p1s)
 deviance(gam3.p)
 deviance(gam3.pqpois)
 
-abs(diff(c(deviance(gam3.pint),deviance(gam3.p1s),deviance(gam3.p))))
+abs(diff(c(deviance(gam3.pint),
+           deviance(gam3.p1l),
+           deviance(gam3.p1ld),
+           deviance(gam3.p1ldi),
+           deviance(gam3.p1s),
+           deviance(gam3.p))))
 
 deviance(gam3.pint) - deviance(gam3.p)
 AIC(gam3.pint) - AIC(gam3.p)
 
 # Anova table comparing different spline models 
-anova(gam3.pint, gam3.p1s, gam3.p, test = "Chisq")
+anova(gam3.pint, 
+      gam3.p1l, 
+      gam3.p1ld, 
+      gam3.p1ldi, 
+      gam3.p1s, 
+      gam3.p, 
+      test = "Chisq")
 
 # With pca 
-anova(gam3.pint, gam3.p1s, gam3.p, gam3.pc.s, test = "Chisq")
+anova(gam3.pint, 
+      gam3.p1l, 
+      gam3.p1ld, 
+      gam3.p1ldi, 
+      gam3.p1s, 
+      gam3.p, 
+      gam3.pc.s, 
+      test = "Chisq")
 
 ## Check GAM ---------------------------------------------------------------
 k.check(gam3.p, subsample=5000, n.rep=400)
