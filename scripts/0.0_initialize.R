@@ -80,6 +80,9 @@ library(faux)          # rnorm_multi
 # For plot_fitness_no_model.R
 library(scatterplot3d) #
 
+# fitness landscape in 3D
+library(plot3D) #
+
 # For CMR 
 library(marked)        #
 
@@ -219,12 +222,18 @@ pt.avg <- function(adland.fun.out, add.points = FALSE,
 }
 
 # Adaptive landscape function  --------------------------------------------
-adapt.land.fun <- function(sp.check = "magnirostris", 
-                           n.simul = 50,
-                           n.iter = 50,  # n.iter is the 'resolution' from which we calculate the landscape
-                           uppy = NULL, upx = NULL, 
-                           downy = NULL, downx = NULL, 
-                           seed = NULL) {
+adapt.land.fun <- function(sp.check = c("fortis large", 
+                                        "fortis small", 
+                                        "fuliginosa", 
+                                        "magnirostris", 
+                                        "scandens"),   # Species to include when calculating the landscape. Can be 1 or more. 
+                           data = bird.d,              # Data to calculate the phenotypes or use the data for empirical measurement
+                           n.simul = 50,               # Number of iterations and individuals to be created
+                           n.iter = 50,                # n.iter is the 'resolution' from which we calculate the landscape
+                           uppy = NULL, upx = NULL,    # Frame to look into (if you want to extend the predictions)
+                           downy = NULL, downx = NULL,    # Allows to fine-tune the predicted landscape for visualisation 
+                           empirical = NULL,           # Focal species for which you want to empirically calculate the landscape
+                           seed = NULL) {              # Replication of the simulated population 
   
   if (!is.null(seed)) {
     set.seed(seed)  
@@ -236,12 +245,10 @@ adapt.land.fun <- function(sp.check = "magnirostris",
   # setting colour 
   b.5 = scales::alpha("black",alpha = .5)
   
-  # Load the bird data 
-  bird.d = readRDS(file = "output/data.out/bird.data.RDS")
-  
   # Make a summary of the bird data (used to simulate more points)
-  summary.data = bird.d %>% 
+  summary.data = data %>% 
     group_by(sp2) %>% 
+    filter(sp2 %in% sp.check) %>% 
     summarise(m.bl = mean(MedianBeakLength),
               m.bd = mean(MedianBeakDepth),
               m.bw = mean(MedianBeakWidth),
@@ -253,12 +260,15 @@ adapt.land.fun <- function(sp.check = "magnirostris",
               cor.bd.bw = cor(MedianBeakDepth,MedianBeakWidth))
   
   # extract relevant summary and subset for a certain species 
-  mu.sp = summary.data[summary.data$sp2 %in%  sp.check,c("m.bl", "m.bd", "m.bw")]
-  sd.sp = summary.data[summary.data$sp2 %in%  sp.check,c("sd.bl", "sd.bd", "sd.bw" )]
-  corr.sp = summary.data[summary.data$sp2 %in%sp.check,c("cor.bl.bd", "cor.bl.bw", "cor.bd.bw")]
+  mu.sp = summary.data[ , c("m.bl", "m.bd", "m.bw")]
+  sd.sp = summary.data[ , c("sd.bl", "sd.bd", "sd.bw" )]
+  corr.sp = summary.data[ , c("cor.bl.bd", "cor.bl.bw", "cor.bd.bw")]
+  
+  # Mean across all columns 
+  # apply(summary.data[,-which(names(summary.data)=="sp2")], 2, mean)
   
   # If more than 1 species, take the mean of all 
-  if (length(sp.check)>1) {
+  if (length(sp.check) > 1) {
     mu.sp = apply(mu.sp, 2, mean)
     sd.sp = apply(sd.sp, 2, mean)
     corr.sp = apply(corr.sp, 2, mean)
@@ -269,14 +279,23 @@ adapt.land.fun <- function(sp.check = "magnirostris",
   coef.variation = sd.sp/mu.sp*100
   names(coef.variation) <- c("bl","bd","bw")
   round(coef.variation, 2)
-    
-  # Simulation of traits for a target species 
-  traits = faux::rnorm_multi(n = n, # ??rnorm_multi
-                             mu = unlist(mu.sp), # Mean of 3 traits (variables)
-                             sd = unlist(sd.sp), # SD of variables 
-                             r  = unlist(corr.sp), # correlation between variables 
-                             varnames = c("Beak length", "Beak depth", "Beak width"),
-                             empirical = TRUE)
+  
+  # If a species name is given in empirical variable, the species data will be used to calculate the adaptive landscape 
+  if (!is.null(empirical)) { 
+    traits = data %>% 
+      filter(sp2 %in% empirical) %>% 
+      dplyr::select(avg.mbl, avg.mbd, avg.mbw)
+    # Rename traits 
+    names(traits) <- c("Beak length", "Beak depth", "Beak width")
+  } else {
+    # Simulation of traits for a target species 
+    traits = faux::rnorm_multi(n = n, # ??rnorm_multi
+                               mu = unlist(mu.sp), # Mean of 3 traits (variables)
+                               sd = unlist(sd.sp), # SD of variables 
+                               r  = unlist(corr.sp), # correlation between variables 
+                               varnames = c("Beak length", "Beak depth", "Beak width"),
+                               empirical = TRUE)
+  }
   
   round(apply(traits, 2, mean), 2)
   round(apply(traits, 2, sd), 2)
