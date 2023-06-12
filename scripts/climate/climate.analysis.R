@@ -16,9 +16,10 @@
 
 # SETUP -------------------------------------------------------------------
 ## Preparation of variables and data  --------------------------------------
-source("scripts/0.0_initialize.R")
+source("scripts/analysis/0.bioinfo_fun/0.initialize_fun.R")
 
 dir.create(path = "data/climate", showWarnings = FALSE)
+dir.create(path = "data/climate/ENSO", showWarnings = FALSE)
 
 # Download the climate data  ----------------------------------------------
 cat("Downloading and read the climate data", fill = TRUE)
@@ -58,7 +59,7 @@ climate.pa$yr = lubridate::year(climate.pa$date)
 climate.pa$month = lubridate::month(climate.pa$date)
 
 # Get sum precipitation per month in every year. 
-yr.range = 2000:2020
+yr.range = 2000:2022
 sum.permonth = climate.pa %>% 
   filter(yr %in% yr.range) %>% 
   group_by(yr, month) %>% 
@@ -114,19 +115,46 @@ oni.sumpre.filt = oni.sumpre %>%
   filter(yr >= 2002)
 
 
+# Make polygon  ----------------------------------------------------------------------------------------------
+up = max(oni.sumpre$sum.per.month)
+d1 = "2010-01-20"
+d2 = "2011-03-21"
+d3 = "2017-02-26"
+d4 = "2019-04-16"
+polygon1 = data.frame(x = c(as.POSIXct(d1)-dyears(1), as.POSIXct(d1), as.POSIXct(d1), as.POSIXct(d1)-dyears(1)), 
+                      y = c(0,0, up,up), poly = 1, type = "Year before")
+polygon2 = data.frame(x = c(as.POSIXct(d1), as.POSIXct(d2), as.POSIXct(d2), as.POSIXct(d1)), 
+                      y = c(0,0, up,up), poly = 2, type = "Year sampling")
+polygon3 = data.frame(x = c(as.POSIXct(d3)-dyears(1), as.POSIXct(d3), as.POSIXct(d3), as.POSIXct(d3)-dyears(1)),
+                      y = c(0,0, up,up), poly = 3, type = "Year before")
+polygon4 = data.frame(x = c(as.POSIXct(d3), as.POSIXct(d4), as.POSIXct(d4), as.POSIXct(d3)),
+                      y = c(0,0, up,up), poly = 4, type = "Year sampling")
+
+all.polygons = rbind(polygon1, polygon2, polygon3, polygon4)
+
+class(all.polygons$x)
+
 # GGplot precipitation pattern with ONI ------------------------------------------------------------------
 el.nino.la.nina.precipitation = ggplot(data = oni.sumpre.filt, 
                                        mapping = aes(x = date, 
                                                      y = sum.per.month))+
+  # Add polygon for ggplot graph 
+  geom_polygon(data = all.polygons,
+               mapping = aes(x = as.Date(x = x, origin = "%Y-%m-%d  %H:%M"),
+                             y = y, group = poly, fill = type),
+               inherit.aes = FALSE, color = NA, alpha = .5)+
   geom_path(aes(colour = elnlan, group = 1), 
             linewidth = .5) + 
   # Revalue the tick marks on plot 
-  scale_x_date(labels = date_format("%Y"), 
+  scale_x_date(labels = scales::date_format("%Y"), 
                breaks = as.Date(seq(min(oni.sumpre$date), 
                                     max(oni.sumpre$date), by = "year"), 
                                 format = "%Y-%m-%d"))+
   scale_y_continuous(breaks = round(seq(min(oni.sumpre$sum.per.month), 
-                                        max(oni.sumpre$sum.per.month), by = 50),1)) +
+                                        max(oni.sumpre$sum.per.month), by = 50),1)#, 
+                     # limits = range(oni.sumpre$sum.per.month)
+                     ) +
+  # ylim(c(0,475))+
   theme(axis.line = element_line(linetype = "solid"),
     axis.ticks = element_line(colour = "black"),
     panel.grid.major = element_line(colour = "gray80",linetype = "dotted"), 
@@ -139,207 +167,17 @@ el.nino.la.nina.precipitation = ggplot(data = oni.sumpre.filt,
     legend.key = element_rect(fill = NA),
     legend.position="top", 
     panel.background = element_rect(fill = NA)) + 
-  # ylim(c(0,300))+
   labs(x = "Year", y = "Sum precipitation per month (mm)") +
   # Change the size of lineinside legend key only 
   guides(colour = guide_legend(override.aes = list(linewidth=1.2))) + 
-  scale_color_manual(name = "",
+  scale_color_manual(name = "ONI:",
                      values = c("none" = "black", 
                                 "El Nino" = "red",
-                                "La Nina" = "blue")); el.nino.la.nina.precipitation
+                                "La Nina" = "blue")) + 
+  scale_fill_manual(name = "Type:",
+                     values = c("Year before" = "gray80",
+                                "Year sampling" = "gray50"))  ; el.nino.la.nina.precipitation
 
 ggsave(filename = "output/images/climate/precipitation.Puerto.ayora.el.nino.la.nina.png", 
        plot = el.nino.la.nina.precipitation, device = 'png', 
        width = 9, height = 4)
-
-# Get fuliginosa (low- highland) climate data ---------------------------------------------
-load('data/bird.data.RData', verbose = TRUE)
-nrow(bird.data)
-
-mean.fuli = bird.data %>% 
-  filter(sp2 =="fuliginosa", Year >= 2000) %>% 
-  group_by(sp2, Year) %>% 
-  summarize(mean.l = mean(MedianBeakLength),
-            mean.d = mean(MedianBeakDepth),
-            mean.w = mean(MedianBeakWidth),
-            sem.bl = sem(MedianBeakLength),
-            sem.bd = sem(MedianBeakDepth),
-            sem.bw = sem(MedianBeakWidth),
-            mean.fit =mean(mxcpois))
-range(mean.fuli$mean.l)
-
-mean.fuli$land = "Lowlands EG"
-mean.fuli$low = mean.fuli$mean.l-mean.fuli$sem.bl
-mean.fuli$upp = mean.fuli$mean.l+mean.fuli$sem.bl
-
-kleindorferetal2006.fig.3 = read.csv("data/climate/Kleindorfer.et.al._2006/H.L.lands.fig3.Kleindorfer.2006.csv", 
-                                     header = FALSE)
-colnames(kleindorferetal2006.fig.3) <- c("yr", "beak.length","gr","type","land")
-kleindorferetal2006.fig.3$type = trimws(kleindorferetal2006.fig.3$type)
-kleindorferetal2006.fig.3$land = trimws(kleindorferetal2006.fig.3$land)
-kleindorferetal2006.fig.3[kleindorferetal2006.fig.3$type == "u.hl","type"] <- "upp"
-kleindorferetal2006.fig.3[kleindorferetal2006.fig.3$type == "u.sm","type"] <- "upp"
-kleindorferetal2006.fig.3[kleindorferetal2006.fig.3$type == "l.hl","type"] <- "low"
-kleindorferetal2006.fig.3[kleindorferetal2006.fig.3$type == "l.sm","type"] <- "low"
-
-k2006.f.3.wide = kleindorferetal2006.fig.3 %>% 
-  dplyr::select(-gr) %>% 
-  pivot_wider(names_from = type, values_from = beak.length) %>% 
-  as.data.frame()
-
-k2006.f.3.wide[k2006.f.3.wide$land == "Highlands", "land"] <- "Highlands K06"
-k2006.f.3.wide[k2006.f.3.wide$land == "Lowlands", "land"] <- "Lowlands K06"
-k2006.f.3.wide$mean.fit = NA
-
-mean.fuli.col.merge = mean.fuli[,c("Year","land", "mean.l", "upp", "low", "mean.fit")]
-colnames(mean.fuli.col.merge) = c("yr","land", "mean", "upp", "low", "mean.fit")
-all.fuli.data = rbind(k2006.f.3.wide, mean.fuli.col.merge)
-
-fuli.preci = merge(all.fuli.data, sum.peryr, by.x = "yr", by.y = "yr")
-
-
-fuli.preci.klein.fig.3 = merge(k2006.f.3.wide, sum.peryr, by.x = "yr", by.y = "yr")
-fuli.preci$land = factor(fuli.preci$land, levels = c("Highlands K06",  
-                                                     "Lowlands K06", "Lowlands EG"))
-
-## range traits, precipitation -------------------------------------------------------------------
-range(fuli.preci$mean)
-range(fuli.preci$sum.per.yr)
-
-# Filter data for MORE precipitation in a year than the mean across years
-heav.rain = fuli.preci %>% 
-  dplyr::filter(sum.per.yr > mean(fuli.preci$sum.per.yr)) %>% 
-  summarize(mean.bl.heavy.rainfall = mean(mean),
-            sem.bl.heavy.rainfall = sem(mean),
-            nb = n())
-
-# Filter data for LESS precipitation in a year than the mean across years
-low.rain = fuli.preci %>% 
-  dplyr::filter(sum.per.yr < mean(fuli.preci$sum.per.yr)) %>% 
-  summarize(mean.bl.low.rainfall = mean(mean),
-            sem.bl.low.rainfall = sem(mean),
-            nb = n())
-
-all.rain.large = fuli.preci %>% 
-  dplyr::filter(mean > 8.5) %>% 
-  summarize(mean.bl.low.rainfall = mean(mean),
-            sem.bl.low.rainfall = sem(mean),
-            nb = n())
-
-low.rain.small = fuli.preci %>% 
-  dplyr::filter(sum.per.yr < mean(fuli.preci$sum.per.yr),
-                mean < mean(fuli.preci$mean)) %>% 
-  summarize(mean.bl.low.rainfall = mean(mean),
-            sem.bl.low.rainfall = sem(mean),
-            nb = n())
-
-beak.meas.ful = matrix(c((heav.rain), 
-                         (low.rain), 
-                         (all.rain.large), 
-                         (low.rain.small)), nrow = 4, byrow = TRUE)
-row.names(beak.meas.ful) <- c("beak.heavey.rain", "beak.low.rain", 
-                              "beak.large.all.rain", "beak.low.low.rain")
-colnames(beak.meas.ful) <- c("l", "se.l", "nb")
-round(apply(beak.meas.ful, 2, as.numeric),2)
-
-
-fuli.preci[is.na(fuli.preci$mean.fit),"mean.fit"] <- 0 
-fuli.preci$mean.fit.rel = fuli.preci$mean.fit/max(fuli.preci$mean.fit)
-
-## GGplot: G. fuliginosa low- highlands, climate -------------------------------------------------------------------
-mean(fuli.preci$mean)
-mean(fuli.preci$sum.per.yr)
-mean.bl.300precp = mean(fuli.preci[fuli.preci$land=="Lowlands EG" & fuli.preci$sum.per.yr > 300 , "mean"])
-round(mean.bl.300precp,2)
-mean.bl.300precp.less = mean(fuli.preci[fuli.preci$land=="Lowlands EG" & fuli.preci$sum.per.yr < 300 , "mean"])
-round(mean.bl.300precp.less,2)
-bl.more300.rain = fuli.preci[fuli.preci$land=="Lowlands EG" & fuli.preci$sum.per.yr > 300 , "mean"]
-bl.less300.rain = fuli.preci[fuli.preci$land=="Lowlands EG" & fuli.preci$sum.per.yr < 300 , "mean"]
-wttest = t.test(bl.more300.rain,
-       bl.less300.rain)
-wttest
-
-all.pop = rbind(data.frame(bl = bl.more300.rain, rain = ">300"),
-                data.frame(bl = bl.less300.rain, rain = "<300"))
-all.pop$rain = as.factor(all.pop$rain)
-plot(all.pop$bl~all.pop$rain)
-
-beak.length.precipitation = fuli.preci %>% 
-  ggplot(mapping = aes(x = sum.per.yr, 
-                       y = mean #, size = mean.fit.rel
-                       # , col = Year)) +
-                       )) +
-  scale_size(range = c(0, 1)) + 
-  # Adding points 
-  # geom_point(size = 4, col = "gray50",show.legend = FALSE) + 
-  geom_pointrange(mapping = aes(x = sum.per.yr,
-                                y = mean, 
-                                ymin=low, ymax=upp, col = land)) +
-  
-  # Adding lines in the graph 
-  geom_hline(yintercept = mean(fuli.preci$mean), 
-             linetype = "dashed", col = "gray40") +
-  geom_vline(xintercept = mean(fuli.preci$sum.per.yr), 
-             linetype = "dashed", col = "gray40") +
-  # Adding text to show the years 
-  geom_text_repel(mapping = aes(x = sum.per.yr, 
-                                y = mean, label = yr, col = land), 
-                  # col = "black", 
-                  size = 3, 
-                  seed = 156) +
-  
-  # Theme
-  theme_bw() + 
-  theme(axis.ticks = element_line(colour = "black"),
-        panel.grid.major = element_line(colour = "gray90",
-                                        linetype = "dotted"), 
-        panel.grid.minor = element_line(colour = "gray90",
-                                        linetype = "dotted"), 
-        axis.title = element_text(size = 14),
-        axis.text = element_text(size = 12, colour = "black"),
-        axis.text.x = element_text(size = 14),
-        axis.text.y = element_text(size = 14),
-        plot.title = element_text(size = 14),
-        legend.text = element_text(size = 12),
-        legend.title = element_text(size = 14),
-        legend.position="bottom") +
-  ggthemes::scale_colour_colorblind() +
-  # Axes
-  labs(x = "Sum precipitation per year (mm)",
-       y = "Mean beak length (mm)", colour = "Sites");beak.length.precipitation
-
-set.seed(1234)
-beak.length.precipitation.bp = ggplot(data = all.pop, mapping = aes(x = rain, 
-                       y = bl
-                       )) +
-    geom_boxplot() +
-    geom_jitter(alpha = 0.8, width = 0.1, height = 0) +
-  
-  # Theme
-  theme_bw() + 
-  theme(axis.ticks = element_line(colour = "black"),
-        panel.grid.major = element_line(colour = "gray90",
-                                        linetype = "dotted"), 
-        panel.grid.minor = element_line(colour = "gray90",
-                                        linetype = "dotted"), 
-        axis.title = element_text(size = 14),
-        axis.text = element_text(size = 12, colour = "black"),
-        axis.text.x = element_text(size = 14),
-        axis.text.y = element_text(size = 14),
-        plot.title = element_text(size = 14),
-        legend.text = element_text(size = 12),
-        legend.title = element_text(size = 14)) +
-  ggthemes::scale_colour_colorblind() +
-  # Axes
-  labs(x = "Precipitation (mm)",
-       y = "Mean beak length (mm)", colour = "Sites"); beak.length.precipitation.bp
-
-plots <- align_plots(beak.length.precipitation, beak.length.precipitation.bp, align = 'h', axis = 'b')
-bl.prep.bp = cowplot::plot_grid(plotlist = list(plots[[1]], plots[[2]]), 
-                                nrow = 1, labels = c("A","B"), 
-                                rel_widths = c(3,1));bl.prep.bp
-
-ggsave(filename = "output/images/climate/fuliginosa.beak.length.precipitation.png", 
-       plot = bl.prep.bp, device = 'png', 
-       width = 9, height = 4)
-
