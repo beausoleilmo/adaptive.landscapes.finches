@@ -20,6 +20,8 @@ rm(list = ls()); gc(verbose = TRUE, reset = FALSE, full = TRUE)
 # Set site to check -------------------------------------------------------
 # Select the site for which the data will be computed 
 site.check = "El Garrapatero" 
+ext.file = "_EG"
+
 
 # Run each script in order ------------------------------------------------
 source("scripts/0.0_initialize.R")                       # Libraries and functions
