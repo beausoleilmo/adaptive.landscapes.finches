@@ -373,9 +373,16 @@ ggp.se.low = ggplot(data = my.persp.dat.frame, mapping = aes(x = x, y = y, z = z
   geom_contour_filled(breaks = brks, show.legend = FALSE)+
   geom_contour(col = alpha("black",.8), linewidth = .2, breaks = brks) +
   geom_point(data = mean.beak.per.sp, 
+             mapping = aes(x = mean.bl, y = mean.bd, color = sp2), color = "black",
+             inherit.aes = FALSE, size = size.pheno+.6, 
+             show.legend = FALSE) + 
+  geom_point(data = mean.beak.per.sp, 
              mapping = aes(x = mean.bl, y = mean.bd, color = sp2), 
              inherit.aes = FALSE, size = size.pheno, 
              show.legend = FALSE) + 
+  geom_point(data = all.local.max, 
+             mapping = aes(x = x, y = y, col = sp), shape = 17,  color = "black",
+             inherit.aes = FALSE, size = size.peaks+.6, show.legend = FALSE) + 
   geom_point(data = all.local.max, 
              mapping = aes(x = x, y = y, col = sp), shape = 17, 
              inherit.aes = FALSE, size = size.peaks, show.legend = FALSE) + 
@@ -422,8 +429,12 @@ ggp.se.up = ggplot(data = my.persp.dat.frame,
                    mapping = aes(x = x, y = y, z = z.u)) + 
   geom_contour_filled(breaks = brks)+
   geom_contour(col = alpha("black",.8), linewidth = .2, breaks = brks) +
+  geom_point(data = mean.beak.per.sp,   color = "black",
+             mapping = aes(x = mean.bl, y = mean.bd, color = sp2), inherit.aes = FALSE, size = size.pheno+.6) + 
   geom_point(data = mean.beak.per.sp, 
              mapping = aes(x = mean.bl, y = mean.bd, color = sp2), inherit.aes = FALSE, size = size.pheno) + 
+  geom_point(data = all.local.max,   color = "black", 
+             mapping = aes(x = x, y = y, col = sp), shape = 17, inherit.aes = FALSE, size = size.peaks+.6, show.legend = FALSE) + 
   geom_point(data = all.local.max, 
              mapping = aes(x = x, y = y, col = sp), shape = 17, inherit.aes = FALSE, size = size.peaks, show.legend = FALSE) + 
   theme_classic() + 
