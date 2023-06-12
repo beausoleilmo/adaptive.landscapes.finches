@@ -12,7 +12,9 @@
   # The adaptive landscape was calculated based on the all the phenotypes and the fitness surface.
   # Basically, you need to MOVE the phenotypes of your individuals to a specific location ()
 
-save.adaptive.landscape.data = FALSE # If TRUE, the adaptive landscape will be computed. If you already computed the adaptive landscape, you can set it to false (run faster)
+save.adaptive.landscape.data = FALSE # If TRUE, the adaptive landscape will be computed. 
+                                     # If you already computed the adaptive landscape, 
+                                     # you can set it to false (run faster)
 export.png = TRUE
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 
@@ -46,16 +48,46 @@ summary.data = bird.d %>%
 
 
 # Adaptive landscape function  --------------------------------------------
+# Load the bird data 
+# load(file = "data/bird.data.RData", verbose = TRUE) # was bird.d = readRDS(file = "output/data.out/bird.data.RDS")
+
 if(save.adaptive.landscape.data){
   # Since calculating the adaptive landscape takes some time, you don't need to recalculate each time
   # Do it once and use the data after for plots. 
   
   ## Simulate and calculate adaptive landscape -------------------------------
   n.simul = 1000 # number of individuals (traits) to simulate 
-  n.iter = 30;n.iter*n.iter # Resolution (exponential) of the adaptive landscape 40 seems fine 
+  n.iter = 30;n.iter*n.iter # Resolution (exponential) of the adaptive landscape 40 seems fine for a 'per sp' adaptive landscape 
+  empirical = NULL
+  # empirical = "fortis small" # Focal species to verify the effect of simulated vs real population data 
+  # specify desired contour levels:
+  prob <- c(0.95,0.90,0.5)
+  
+  bird.data %>% 
+    filter(sp2 == "fortis small") %>% 
+  ggplot(data =., 
+         mapping = aes(x = avg.mbl, y = avg.mbd)) +
+    # geom_contour_filled() +
+    geom_density_2d_filled(binwidth = .1) +
+    scale_fill_manual(values =  alpha(hcl.colors(4, palette = hcl.pals()[65], rev = TRUE), alpha =  .99))+
+    # geom_contour() +
+    geom_point(alpha = .1) +
+    # multivariate t-distribution
+    stat_ellipse(type = "t", level = 0.99, color = "grey0",  linewidth = 1, alpha = .8, linetype = 2) +
+    stat_ellipse(type = "t", level = 0.95, color = "grey20",  linewidth = 1, alpha = .8, linetype = 2) +
+    # stat_ellipse(type = "t", level = 0.90, color = "grey20", linewidth = 1, alpha = .8, linetype = 2) +
+    stat_ellipse(type = "t", level = 0.50, color = "grey90", linewidth = 1, alpha = .8, linetype = 2) +
+    labs(#tag = "B",
+         x = "Beak length (mm)",
+         y = "Beak depth (mm)", fill = "Levels", 
+         # col = "Species",
+         size = 12, alpha = 1) +
+    theme_bw()
   
   # More iterations since corvering a larger area, needs a larger resolution 
   all.sp =    adapt.land.fun(sp.check = levels(bird.data$sp2), 
+                             data = bird.data, 
+                             empirical = empirical,
                              n.simul = n.simul, 
                              n.iter = 90, # 90X90
                              uppy = 20, upx = 17, downy = 5, downx = 5)
@@ -67,18 +99,30 @@ if(save.adaptive.landscape.data){
   # Saving the data ---------------------------------------------------------
   dir.create(path = "output/data.out/adpt_land.sp", showWarnings = FALSE)
   
-  saveRDS(all.sp, file = paste("output/data.out/adpt_land.sp/all.sp",ext.file,".RDS", sep = ""))
+  # Make sure empirical data is exported in new object 
+  if (is.null(empirical)) {
+    ext.file.emp = ext.file
+  } else {
+    ext.file.emp = paste(ext.file, gsub(pattern = " ", replacement = "_", x = empirical), sep = "_")
+  }
+  
+  saveRDS(all.sp, file = paste("output/data.out/adpt_land.sp/all.sp",ext.file.emp,".RDS", sep = ""))
+
 }
 
 # Loading saved estiamtes of adaptive landscapes --------------------------
 # If ran steps before, this will be much faster 
 all.sp = readRDS(file = paste("output/data.out/adpt_land.sp/all.sp",ext.file,".RDS", sep = ""))
 
+if(save.adaptive.landscape.data){
+  all.sp = readRDS(file = paste("output/data.out/adpt_land.sp/all.sp",ext.file.emp,".RDS", sep = ""))
+}
+
 all.sp$coef.variation
 
 # PLOT: adaptive landscape ---------------------------------------------
 # Number of colours (not too many as it is difficult to read )
-n.col = 10
+n.col = 10 # 10 for nice scale, 13 for better resolution betwee 0.3 and 0.4 
 # Make some palettes 
 color_plate.dens2 = hcl.colors(n.col, "YlOrRd", rev = TRUE, alpha = 1)
 color_plate.dens2.1 = hcl.colors(n.col, "YlOrRd", rev = TRUE, alpha = .4)
@@ -88,7 +132,10 @@ color_plate=viridis::viridis(n.col)
 # define max z axis to be consistent between the graphs 
 zlim <- c(0,1)
 # Create breaks based on the number of colours specified 
-brks = seq(zlim[1],zlim[2],length.out=length(color_plate)+1)
+brks1 = seq(zlim[1],zlim[2],length.out=length(color_plate.dens2)+1)
+
+# Manual breaks to highlight the 5 peaks 
+brks = c(0,.1, .2, 0.3, .35, .36, .37,  .4, .5,.6, .7, 0.8, 0.9, 1)
 
 # Find overall range to set up the colour scale 
 overall.range.fit.land = range(c(all.sp$z2,my.persp.data$z),na.rm = TRUE)
@@ -122,7 +169,8 @@ peak.pheno = cbind(w.data[,c("sp2", "avg.trait1", "avg.trait2")],
 
 ggp.fit.land = ggplot(data = fit.data, 
                       mapping = aes(x = x, y = y, z = z)) + 
-  geom_contour_filled(breaks = brks) +
+  # geom_contour_filled(breaks = brks) +
+  geom_contour_filled(breaks = brks1) +
   geom_contour(col = alpha("black",.8), 
                linewidth = .2, breaks = brks) +
   # Add points of all individuals and draw contour to the points 
@@ -134,6 +182,8 @@ ggp.fit.land = ggplot(data = fit.data,
   geom_point(data = mean.beak.per.sp, 
              mapping = aes(x = mean.bl, y = mean.bd, color = sp2), inherit.aes = FALSE, size = size.pheno) + 
   # Add peaks 
+  geom_point(data = all.local.max, 
+             mapping = aes(x = x, y = y, col = sp), color = "black", shape = 17, inherit.aes = FALSE, size = size.peaks+.6, show.legend = FALSE) + 
   geom_point(data = all.local.max, 
              mapping = aes(x = x, y = y, col = sp), shape = 17, inherit.aes = FALSE, size = size.peaks, show.legend = FALSE) + 
   geom_segment(data = peak.pheno, 
@@ -189,8 +239,8 @@ ada.data = cbind(expand.grid(all.sp$x,
 colnames(ada.data) <- c("x", "y", "z")
 
 ggp.adap.fit = ggplot(data = ada.data, mapping = aes(x = x, y = y, z = z)) + 
-  geom_contour_filled(breaks = brks) +
-  geom_contour(col = alpha("black",.8), linewidth = .2, breaks = brks) +
+  geom_contour_filled(breaks = brks1) +
+  geom_contour(col = alpha("black",.8), linewidth = .2, breaks = brks1) +
   # Add points of all individuals and draw contour to the points 
   geom_point(data = bird.d, mapping = aes(x = avg.mbl, y = avg.mbd, col = sp2.fct), color = "grey30", alpha = .02, size = 1.05, inherit.aes = FALSE) +
   geom_point(data = bird.d, mapping = aes(x = avg.mbl, y = avg.mbd, col = sp2.fct), alpha = .02, size = 1, inherit.aes = FALSE) +
@@ -224,8 +274,11 @@ ggp.adap.fit = ggplot(data = ada.data, mapping = aes(x = x, y = y, z = z)) +
         strip.text = element_text(colour = 'black', size = 13),
         legend.background = element_rect(fill = "white", color = NA)) +
   labs(tag = "C",
+       title = "Adaptive landscape based simulated bivariate normal",
+       # title = "Adaptive landscape based on small G. fortis",
        x = "Mean beak length (mm)",
-       y = "Mean beak depth (mm)", fill = "Levels", col = "Levels",
+       y = "Mean beak depth (mm)", 
+       fill = "Levels", col = "Levels",
        size = 12, alpha = 1) +
   scale_fill_manual(values =  alpha(color_plate.dens2, .99),
                     guide = guide_legend(
@@ -252,6 +305,18 @@ ggp.adap.fit = ggplot(data = ada.data, mapping = aes(x = x, y = y, z = z)) +
   metR::geom_text_contour(aes(z = z), size = 2.5, 
                           label.placer = label_placer_flattest()
   ); ggp.adap.fit
+
+gg.adapt.sim.emp = ggpubr::ggarrange(ggp.adap.fit,
+                                 ggp.adap.fit2,
+                                 align = "v",
+                                 ncol=2, common.legend = TRUE, legend = "right");gg.adapt.sim.emp
+
+ggsave(filename = paste("~/Desktop/adaptiveland_sim_emp",ext.file,".png", sep = ""),
+# ggsave(filename = paste("~/Desktop/adaptiveland_empirical",ext.file,".png", sep = ""),
+       device = "png",
+       plot = gg.adapt.sim.emp, 
+units = "in", width = 14, height = 7)
+
 # Add grid 
 ggp.adap.fit = ggp.adap.fit + 
   geom_hline(data = new.gridy, aes(yintercept = y), colour = 'grey50', linetype = "dotted", linewidth = .25) +
@@ -277,17 +342,22 @@ ggsave(filename = paste("output/images/landscape_plots/",name.adap.file,ext.file
 
 # GGplot: year changing  ----------------------------------------------------------
 ggp.fit.land.yr.chg = ggplot(data = fit.data, mapping = aes(x = x, y = y, z = z)) + 
-  geom_contour_filled(breaks = brks)+
-  geom_contour(col = alpha("black",.8), linewidth = .2, breaks = brks) +
+  geom_contour_filled(breaks = brks1)+
+  geom_contour(col = alpha("black",.8), linewidth = .2, breaks = brks1) +
+  # Add the population points 
   geom_point(data = bird.d, mapping = aes(x = avg.mbl, y = avg.mbd, col = sp2.fct), color = "grey30", alpha = .02, size = 1.05, inherit.aes = FALSE) +
   geom_point(data = bird.d, mapping = aes(x = avg.mbl, y = avg.mbd, col = sp2.fct), alpha = .02, size = 1, inherit.aes = FALSE) + 
+  # Aad the mean beak traits
   geom_point(data = mean.beak.per.sp, 
              mapping = aes(x = mean.bl, y = mean.bd, color = sp2), color = "black", inherit.aes = FALSE, size = size.pheno+.2) + 
   geom_point(data = mean.beak.per.sp, 
              mapping = aes(x = mean.bl, y = mean.bd, color = sp2), inherit.aes = FALSE, size = size.pheno) + 
+  # Add peaks 
+  geom_point(data = all.local.max, 
+             mapping = aes(x = x, y = y, col = sp), color = "black", shape = 17, inherit.aes = FALSE, size = size.peaks+.6, show.legend = FALSE) + 
   geom_point(data = all.local.max, 
              mapping = aes(x = x, y = y, col = sp), shape = 17, inherit.aes = FALSE, size = size.peaks, show.legend = FALSE) + 
-  
+  # Add segment between peaks and mean phenotype
   geom_segment(data = peak.pheno, 
                mapping = aes(x = avg.trait1, y = avg.trait2, xend = x, yend = y), inherit.aes = FALSE) +
   theme_classic() + 
