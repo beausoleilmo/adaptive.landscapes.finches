@@ -14,9 +14,6 @@
 # Preparation of variables  --------------------------------------
 source('scripts/0.0_initialize.R')
 
-site.check = "El Garrapatero"
-ext.file = "_EG"
-
 # Data --------------------------------------------------------------------
 load('data/bird.data.RData', verbose = TRUE) 
 write.csv(x = bird.data, file = "data/bird.data.csv")
@@ -247,7 +244,8 @@ drg.eff$min.mth.day = substr(drg.eff$mintime, 6, 10)
 drg.eff$max.mth.day = substr(drg.eff$maxtime, 6, 10)
 drg.eff.r = rbind(drg.eff,c("","","",margg[nrow(margg),-ncol(margg)],"",""))
 drg.eff.r.c = cbind(drg.eff.r,Sum = margg[,ncol(margg)])
-Percentage.sampling=as.numeric(drg.eff.r.c[nrow(drg.eff.r.c),])/drg.eff.r.c[dim(drg.eff.r.c)[1],dim(drg.eff.r.c)[2]]*100
+Percentage.sampling=as.numeric(drg.eff.r.c[nrow(drg.eff.r.c),])/drg.eff.r.c[dim(drg.eff.r.c)[1],
+                                                                            dim(drg.eff.r.c)[2]]*100
 drg.eff.r.c = rbind(drg.eff.r.c, Percent = round(Percentage.sampling,2))
 write.csv(drg.eff.r.c[,c("Year", "min.mth.day", "max.mth.day", 
                          "fuliginosa", "fortis small", 
@@ -326,7 +324,8 @@ traits.pairs = GGally::ggpairs(data = bird.data,
                                columns = col.index[c(4,6,5,3,1,2,7,8,9,10)],
                                # Get the legend from another place 
                                legend = grab_legend(plot.leg),
-                      upper = list(continuous = wrap(funcVal = cor_fun, # from source("scripts/functions/cor_fun.R")
+                               # from source("scripts/functions/cor_fun.R")
+                      upper = list(continuous = wrap(funcVal = cor_fun, 
                                                      stars = TRUE))) + 
   theme_classic() +   
   theme(legend.text.align = 0,
