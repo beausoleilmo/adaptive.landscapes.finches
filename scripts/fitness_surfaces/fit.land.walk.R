@@ -62,14 +62,14 @@ for (target in c("scandens", "fortis large", "fortis small", "fuliginosa", "magn
     # new dataframe with sequence values of x-y axes
     pred.walk = data.frame(spcomp1 = target,    # Record which species analysed 
                            spcomp2 = i,
-                           avg.mbl = seq(all.local.max[target,c("beak.l")], # Make a sequence of phenotypes to reach 
+                           avg.mbl = seq(all.local.max[target,c("beak.l")], # Make phenotype sequence to reach 
                                          all.local.max[i,c("beak.l")], 
                                          length.out = length.out.seq),
                            avg.mbd = seq(all.local.max[target,c("beak.d")], 
                                          all.local.max[i,c("beak.d")], 
                                          length.out = length.out.seq),
-                           spcomp1.peak = all.local.max[target,c("z")], # Keep the peak height (fitness) information 
-                           spcomp2.peak = all.local.max[i,c("z")],      # Keep the peak height (fitness) information 
+                           spcomp1.peak = all.local.max[target,c("z")], # Keep peak height (fitness) info 
+                           spcomp2.peak = all.local.max[i,c("z")],      # Keep peak height (fitness) info 
                            res = length.out.seq,
                            sp1.sp2 = paste(target, i, sep = "-"))
     
@@ -89,9 +89,10 @@ for (target in c("scandens", "fortis large", "fortis small", "fuliginosa", "magn
     pred.walk.min.only = pred.walk[which.min(pred.walk$min.fitval),]
     pred.walk.min.only[,c("min.fitval.pheno",
                           "avg.mbl.pheno", 
-                          "avg.mbd.pheno")] <- pred.walk[which.min(pred.walk$min.fitval.pheno), c("min.fitval.pheno",
-                                                                                                  "avg.mbl.pheno",
-                                                                                                  "avg.mbd.pheno")]
+                          "avg.mbd.pheno")] <- pred.walk[which.min(pred.walk$min.fitval.pheno), 
+                                                         c("min.fitval.pheno",
+                                                           "avg.mbl.pheno",
+                                                           "avg.mbd.pheno")]
     min.fit.sca.comp = rbind(min.fit.sca.comp, 
                              pred.walk.min.only)
     pred.walk.all = rbind(pred.walk.all, 
@@ -106,21 +107,26 @@ ggp.walk.fit.land.bridge = ggplot(data = fit.land.data,
                                   mapping = aes(x = x, y = y, z = z)) + 
   geom_contour_filled(breaks = brks)+
   geom_contour(col = alpha("black",.8), linewidth = .2, breaks = brks) +
+  # Add path relative to scandens
   geom_point(data = pred.walk.all[pred.walk.all$spcomp1=="scandens",], 
              mapping = aes(x = avg.mbl, y = avg.mbd, size = min.fitval), 
              color = alpha("darkolivegreen3",.09), show.legend = FALSE,
              inherit.aes = FALSE) +
-  geom_point(data = min.fit.sca.comp[min.fit.sca.comp$spcomp1=="scandens",], 
+  # Add minimum on path 
+  geom_point(data = min.fit.sca.comp[min.fit.sca.comp$spcomp1=="scandens" & 
+                                       min.fit.sca.comp$spcomp2!="scandens",], 
              mapping = aes(x = avg.mbl, y = avg.mbd), 
              shape = 25, color = alpha("purple",.5), fill = alpha("purple",.5), 
              size = 4,show.legend = FALSE,
              inherit.aes = FALSE) +
+  # Add path in ground finches except scandens 
   geom_point(data = pred.walk.all[pred.walk.all$sp1.sp2 %in% c("fortis large-fortis small", 
                                                                "fortis small-fuliginosa", 
                                                                "magnirostris-fortis large"),], 
              mapping = aes(x = avg.mbl, y = avg.mbd, size = min.fitval), 
              color = alpha("darkolivegreen3",.09), show.legend = FALSE,
              inherit.aes = FALSE) +
+  # Add minimum on path 
   geom_point(data = min.fit.sca.comp[min.fit.sca.comp$sp1.sp2 %in% c("fortis large-fortis small", 
                                                                      "fortis small-fuliginosa", 
                                                                      "magnirostris-fortis large"),], 
@@ -129,8 +135,14 @@ ggp.walk.fit.land.bridge = ggplot(data = fit.land.data,
              size = 4,show.legend = FALSE,
              inherit.aes = FALSE) +
   geom_point(data = mean.beak.per.sp, 
+             mapping = aes(x = mean.bl, y = mean.bd, color = sp2), color = "black", 
+             inherit.aes = FALSE, size = size.pheno+.6) + 
+  geom_point(data = mean.beak.per.sp, 
              mapping = aes(x = mean.bl, y = mean.bd, color = sp2), 
              inherit.aes = FALSE, size = size.pheno) + 
+  geom_point(data = all.local.max, 
+             mapping = aes(x = x, y = y, col = sp), shape = 17, color = "black",
+             inherit.aes = FALSE, size = size.peaks+.6, show.legend = FALSE) + 
   geom_point(data = all.local.max, 
              mapping = aes(x = x, y = y, col = sp), shape = 17, 
              inherit.aes = FALSE, size = size.peaks, show.legend = FALSE) + 
@@ -180,6 +192,7 @@ ggp.walk.fit.land.bridge = ggplot(data = fit.land.data,
 ggp.walk.fit.land.pheno = ggplot(data = fit.land.data, mapping = aes(x = x, y = y, z = z)) + 
   geom_contour_filled(breaks = brks)+
   geom_contour(col = alpha("black",.8), linewidth = .2, breaks = brks) +
+  # add the path 
   geom_point(data = pred.walk.all[pred.walk.all$sp1.sp2 %in%  c("scandens-scandens","fortis large-fortis large", 
                                                                 "fortis small-fortis small",
                                                                 "fuliginosa-fuliginosa", 
@@ -187,9 +200,14 @@ ggp.walk.fit.land.pheno = ggplot(data = fit.land.data, mapping = aes(x = x, y = 
              mapping = aes(x = avg.mbl.pheno, y = avg.mbd.pheno, size = min.fitval.pheno), 
              color = alpha("darkolivegreen3",.09), show.legend = FALSE,
              inherit.aes = FALSE) +
+  # Add phenotypic mean 
+  geom_point(data = mean.beak.per.sp, 
+             mapping = aes(x = mean.bl, y = mean.bd, color = sp2), color = "black",
+             inherit.aes = FALSE, size = size.pheno+.6) + 
   geom_point(data = mean.beak.per.sp, 
              mapping = aes(x = mean.bl, y = mean.bd, color = sp2), 
              inherit.aes = FALSE, size = size.pheno) + 
+  
   geom_point(data = min.fit.sca.comp[min.fit.sca.comp$sp1.sp2 %in%  c("scandens-scandens",
                                                                       "fortis large-fortis large", 
                                                                       "fortis small-fortis small",
@@ -199,6 +217,10 @@ ggp.walk.fit.land.pheno = ggplot(data = fit.land.data, mapping = aes(x = x, y = 
              shape = 25, color = alpha("purple",.5), fill = alpha("purple",.5), 
              size = 4,show.legend = FALSE,
              inherit.aes = FALSE) +
+  # Add peak 
+  geom_point(data = all.local.max, 
+             mapping = aes(x = x, y = y, col = sp), shape = 17, color = "black",
+             inherit.aes = FALSE, size = size.peaks+.6, show.legend = FALSE) + 
   geom_point(data = all.local.max, 
              mapping = aes(x = x, y = y, col = sp), shape = 17, 
              inherit.aes = FALSE, size = size.peaks, show.legend = FALSE) + 
