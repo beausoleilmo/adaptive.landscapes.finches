@@ -96,16 +96,17 @@ ggp.fit.no.model = ggplot(data = gd.pt,
 # Marginal rug plot ------------------------------------------------------------------------------------------
 mul.cex = 1
 ggp.fit.no.model.points = ggp.fit.no.model + 
-  geom_point(data = bird.data, 
-             mapping = aes(x = avg.mbl,
-                           y = avg.mbd, 
-                           col = sp2.fct), 
-             alpha = 0.05,
-             shape = 19, #".", # if use ".", size you should increase the size of points
-             show.legend = FALSE,
-             size = ifelse(bird.data$mxcpois == 0, 
-                           yes = .7, 
-                           no = bird.data$mxcpois/max(bird.data$mxcpois)*mul.cex)) +
+  # Adding points to the plot (might be too crowded)
+  # geom_point(data = bird.data, 
+  #            mapping = aes(x = avg.mbl,
+  #                          y = avg.mbd, 
+  #                          col = sp2.fct), 
+  #            alpha = 0.05,
+  #            shape = 19, #".", # if use ".", size you should increase the size of points
+  #            show.legend = FALSE,
+  #            size = ifelse(bird.data$mxcpois == 0, 
+  #                          yes = .7, 
+  #                          no = bird.data$mxcpois/max(bird.data$mxcpois)*mul.cex)) +
   # Add tick marks called 'rugs' to show the density of 
   # points compact visualisation of marginal distributions 
   geom_rug(data = bird.data, 
@@ -118,6 +119,16 @@ ggp.fit.no.model.points = ggp.fit.no.model +
          colour = guide_legend(order = 2, ncol=1,
                                override.aes = list(size = 3, 
                                                    alpha = 1))) +
+  # Adding 95% ellipses 
+  stat_ellipse(data = bird.data, 
+               mapping = aes(x = avg.mbl,
+                             y = avg.mbd,
+                             col = sp2.fct), 
+               type = "t", # multivariate t-distribution
+               show.legend = FALSE,
+               level = 0.95,
+               linewidth = 1, alpha = .8,
+               linetype = 2) +
   scale_color_manual(values = pal, 
                      name = "Species",
                      labels = c(bquote(italic("G. fuliginosa")),
@@ -130,7 +141,7 @@ ggp.fit.no.model.points = ggp.fit.no.model +
 
 # Marginal plots manual density ------------------------------------------------------------------------------
 # Add density plot directly to ggplot 
-ggp.fit.no.model.points + 
+ggp.fit.no.model.points.dist = ggp.fit.no.model.points + 
   # Making more space for the density plots 
   coord_cartesian(xlim = c(min(bird.data$avg.mbl), ceiling(max(bird.data$avg.mbl))+1),
                   ylim = c(min(bird.data$avg.mbd), ceiling(max(bird.data$avg.mbd))+1)) +
@@ -144,7 +155,7 @@ ggp.fit.no.model.points +
                mapping = aes(x = avg.mbl,
                              col = sp2.fct),
                position = position_nudge(y = max(bird.data$avg.mbd)+.1),
-               inherit.aes = FALSE)
+               inherit.aes = FALSE);ggp.fit.no.model.points.dist
   
 # Marginal plots with cowplot -------------------------------------------------------------------------------
 # Allows for more control since plotting full GGPLOTS in a grid 
@@ -177,9 +188,12 @@ cowplot::plot_grid(xplot, NULL, sp,
 
 # Marginal plots with ggExtra --------------------------------------------------------------------------------
 # Add histogram marginal plots with ggExtra
-ggp.fit.no.model.points.marginals = ggExtra::ggMarginal(ggp.fit.no.model.points, 
-                                                        type = "histogram", 
-                                                        groupColour = TRUE, groupFill = TRUE); ggp.fit.no.model.points.marginals
+
+# Requires the geom_point layer
+# ggp.fit.no.model.points.marginals = ggExtra::ggMarginal(ggp.fit.no.model.points, 
+#                                                         type = "histogram", 
+#                                                         groupColour = TRUE, groupFill = TRUE)
+# ggp.fit.no.model.points.marginals
 
 
 # SAVING GGplots ---------------------------------------------------------------------------------------------
@@ -187,8 +201,10 @@ cat(paste("Saving ggplot to file",
           paste("output/data.out/ggplot_data/ggp.fit.no.model.RDSgp.fit.no.model.RDS")), 
     fill = TRUE)
 
-ggsave(filename = paste("output/images/landscape_plots/fitplot.no.model_ggplt",ext.file,".png", sep = ""),
-       plot = ggp.fit.no.model.points, device = "png", units = "in", width = 12, height = 6)
+ggsave(filename = paste("output/images/landscape_plots/fitplot.no.model_ggplt",
+                        ext.file,".png", sep = ""),
+       plot = ggp.fit.no.model.points, device = "png", 
+       units = "in", width = 12, height = 6)
 
 saveRDS(object = ggp.fit.no.model.points, 
         file = "output/data.out/ggplot_data/ggp.fit.no.model.RDS")
