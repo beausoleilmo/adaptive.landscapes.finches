@@ -312,16 +312,18 @@ ggp.adap.fit = ggplot(data = ada.data, mapping = aes(x = x, y = y, z = z)) +
                           label.placer = label_placer_flattest()
   ); ggp.adap.fit
 
-gg.adapt.sim.emp = ggpubr::ggarrange(ggp.adap.fit,
-                                 ggp.adap.fit2,
-                                 align = "v",
-                                 ncol=2, common.legend = TRUE, legend = "right");gg.adapt.sim.emp
 
-ggsave(filename = paste("~/Desktop/adaptiveland_sim_emp",ext.file,".png", sep = ""),
+### GGplot empirical -------------------------------------------------------------------------------------------
+# gg.adapt.sim.emp = ggpubr::ggarrange(ggp.adap.fit,
+#                                  ggp.adap.fit2,
+#                                  align = "v",
+#                                  ncol=2, common.legend = TRUE, legend = "right");gg.adapt.sim.emp
+
+# ggsave(filename = paste("~/Desktop/adaptiveland_sim_emp",ext.file,".png", sep = ""),
 # ggsave(filename = paste("~/Desktop/adaptiveland_empirical",ext.file,".png", sep = ""),
-       device = "png",
-       plot = gg.adapt.sim.emp, 
-units = "in", width = 14, height = 7)
+#        device = "png",
+#        plot = gg.adapt.sim.emp, 
+#        units = "in", width = 14, height = 7)
 
 # Add grid 
 ggp.adap.fit = ggp.adap.fit + 
