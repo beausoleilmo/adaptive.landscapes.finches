@@ -351,6 +351,8 @@ zlim <- c(0,1)
 
 # Create breaks based on the number of colours specified 
 brks = seq(zlim[1],zlim[2],length.out=length(color_plate.gray)+1)
+# Manual breaks to highlight the 5 peaks 
+# brks = c(0,.1, .2, 0.3, .35, .36, .37,  .4, .5,.6, .7, 0.8, 0.9, 1)
 
 size.pheno = 5
 size.peaks = 5

@@ -33,9 +33,16 @@ color_plate=viridis::viridis(n.col)
 zlim <- c(0,1)
 
 # Create breaks based on the number of colours specified 
-brks = seq(zlim[1],zlim[2],length.out=length(color_plate)+1)
+brks = seq(zlim[1],zlim[2],
+           length.out=length(color_plate)+1)
 
-fit.land.data = cbind(expand.grid(my.persp.data$m1, my.persp.data$m2), as.vector(my.persp.data$z))
+# Manual breaks to highlight the 5 peaks 
+# brks = c(0,.1, .2, 0.3, .35, .36, .37,  .4, .5,.6, .7, 0.8, 0.9, 1)
+
+fit.land.data = cbind(expand.grid(my.persp.data$m1, 
+                                  my.persp.data$m2), 
+                      as.vector(my.persp.data$z))
+
 colnames(fit.land.data) <- c("x", "y", "z")
 
 mean.beak.per.sp = bird.data %>% 
@@ -47,7 +54,8 @@ mean.beak.per.sp$sp2 = factor(mean.beak.per.sp$sp2, levels = levels(bird.data$sp
 size.pheno = 5
 size.peaks = 5
 text.size = 16
-peak.pheno = cbind(w.data[,c("sp2", "avg.trait1", "avg.trait2")], all.local.max[,c("x","y","sp")])
+peak.pheno = cbind(w.data[,c("sp2", "avg.trait1", "avg.trait2")], 
+                   all.local.max[,c("x","y","sp")])
 
 
 # make sequence definition (higher = more numbers between 2 points)
