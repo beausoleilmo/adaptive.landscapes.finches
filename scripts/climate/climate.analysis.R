@@ -16,7 +16,7 @@
 
 # SETUP -------------------------------------------------------------------
 ## Preparation of variables and data  --------------------------------------
-source("scripts/analysis/0.bioinfo_fun/0.initialize_fun.R")
+source("scripts/0.0_initialize.R")
 
 dir.create(path = "data/climate", showWarnings = FALSE)
 dir.create(path = "data/climate/ENSO", showWarnings = FALSE)
