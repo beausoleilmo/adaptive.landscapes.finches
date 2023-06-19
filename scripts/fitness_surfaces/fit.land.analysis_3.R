@@ -7,7 +7,7 @@
 # Why: 
   # Calculation of tables, plots of fitness, euclidean distance, walking the fitness landscape, prospective selection 
 # Requires 
-  # You need the data, 
+  # You need the data, the models,  
   # the summary of the data 
 # NOTES: 
 ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
