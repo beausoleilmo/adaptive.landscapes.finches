@@ -29,10 +29,12 @@ source("scripts/0.0_initialize.R")                       # Libraries and functio
 source("scripts/fitness_surfaces/fit.land.analysis.R")   # Further preparation 
 source("scripts/fitness_surfaces/fit.land.analysis_2.R") # This step is long
 source("scripts/fitness_surfaces/fit.land.analysis_3.R") # Get fitness landscape and prospective selection 
+source("scripts/fitness_surfaces/fit.land.analysis_4.R") # Draw the landscapes in 3D. 
 
 source("scripts/fitness_surfaces/plot_fitness_no_model.R") # Get fitness landscape without model 
 source("scripts/adaptive_landscapes/adaptive.landscape.calculation.R") # Get adaptive landscape COMBINED with fitness landscape and with no model. Will be long if you estimate the adaptive landscape again! 900 iterations will be done
 source("scripts/fitness_surfaces/fit.land.walk.R")       # Walking the fitness landscape to get information regarding peak distance and valleys 
+source("scripts/fitness_surfaces/projection_pursuit_regression.R") # PPR on beak traits  
 
 source("scripts/climate/climate.analysis.R")             # Climate analysis 
 source("scripts/maps/Maps sites Galapagos drawing net and sites.R")    # Maps for sites and islands
