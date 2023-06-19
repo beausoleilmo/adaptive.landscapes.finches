@@ -157,9 +157,10 @@ v.00001.2023-04-04
   │   │   │                                                  # selection, tables of walk on the fitness landscape 
   │   │   ├── fit.land.walk.R                                # Figures of the walk on the fitness landscape 
   │   │   │                                                  # (showing valleys and peaks)
-  │   │   └── plot_fitness_no_model.R                        # Plot fitness landscape using a smoothed average of 
-  │   │                                                      # raw fitness values across all phenotypic 
-  │   │                                                      # combinations for raw values. 
+  │   │   ├── plot_fitness_no_model.R                        # Plot fitness landscape using a smoothed average of 
+  │   │   │                                                  # raw fitness values across all phenotypic 
+  │   │   │                                                  # combinations for raw values. 
+  │   │   └── projection_pursuit_regression.R                # Projection pursuit regression (PPR)
   │   ├── ./functions                                      
   │   │   ├── 00_info_session.R                              # Prints packages used and operating system in file 
   │   │   └── 0.1_misc.R                                     # More helper functions 
@@ -182,12 +183,13 @@ v.00001.2023-04-04
   ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
   ├── ./output                                             
   │   ├── ./adaptive_land.animation                        
-  │   │   └── ./_fitplot.gif                                 # contains images to construct a GIF on how to 
+  │   │   └── ./_fitplot.gif                                 # Contains images to construct a GIF on how to 
   │   │       │                                              # calcualte an adaptive landscape 
-  |   │       └── [...] Miscellaneous files                  # files for .gif construction 
+  |   │       └── [...] Miscellaneous files                  # Files for .gif construction 
   │   ├── ./data.out                                       
   │   │   ├── ./adpt_land.sp                                
-  │   │   │   └── all.sp_EG.RDS                              # Adaptive landscape data 
+  │   │   │   ├── all.sp_EG_fortis_small.RDS                 # Adaptive landscape empirical data 
+  │   │   │   └── all.sp_EG.RDS                              # Adaptive landscape simulated data 
   │   │   ├── ./fitness.landscape.data                     
   │   │   │   ├── all.local.max_pca.RDS                      # Phenotypic position and value of fitness local 
   │   │   │   │                                              # maxima for all species (PCA traits)
@@ -196,12 +198,12 @@ v.00001.2023-04-04
   │   │   │   ├── fitness.summary.RDS                        # Combination of all.local.max and w.data
   │   │   │   ├── min.fit.sca.comp.RDS                       # Walking the fitness surface fitness-peak between 
   │   │   │   │                                              # species: Peak to peak measurements 
-  │   │   │   ├── summ.mean.traits.RDS                       # Summary of the beak and body traits YEARLY (in 
+  │   │   │   ├── summary.traits.finches.RDS                 # Summary of the beak and body traits YEARLY (in 
   │   │   │   │                                              # fit.land.analysis.R)
   │   │   │   └── w.data.RDS                                 # Average and predicted fitness at trait average (and 
   │   │   │                                                  # average + sd of beak traits)
   │   │   ├── ./ggplot_data                                 
-  │   │   │   └── ggp.fit.no.model.RDS                       # ggplot data for fitness landscape without model 
+  │   │   │   └── ggp.fit.no.model.RDS                       # GGplot data for fitness landscape without model 
   │   │   ├── ./landscape_data                              
   │   │       ├── my.persp.data_pca.RDS                      # Data from plot.gam.cust() function using GAM with 
   │   │       │                                              # PCA traits
@@ -210,8 +212,8 @@ v.00001.2023-04-04
   │   │   ├── ./tables                                      
   │   │       ├── between.species.pheno.eucli.csv                # Euclidean distance of each mode for pairwise 
   │   │       │                                                  # mean phenotypes (lower portion) and for pairwise
-  │   │       │                                                  G-transformed mean phenotypes (upper portion). 
-  │   │       ├── euclidean.csv                                  # table of Euclidean distances of population mean 
+  │   │       │                                                  # G-transformed mean phenotypes (upper portion). 
+  │   │       ├── euclidean.csv                                  # Table of Euclidean distances of population mean 
   │   │       │                                                  # to the position of the peaks on the fitness
   │   │       ├── fitness.diff.within.species.adaptive.walk.csv  # % fitness loss from fitness peak and fitness at 
   │   │       │                                                  # phenotypic mean
@@ -222,6 +224,8 @@ v.00001.2023-04-04
   │   │       └── sampling.effort.sampling.range_EG.csv          # Sampling effort for the ground finches studied 
   │   │                                                          # with minimum and maximum date of visit and 
   │   │                                                          # number of individual of each species captured. 
+  │   ├── ./fitland_interactive
+  │   │       └── plotly data, interactive graph and 3D plots    # Various files to plot landscape in 3D 
   │   ├── ./images                                                                
   │   │       ├── ./climate                                                       
   │   │       │   ├── fuliginosa.beak.length.precipitation.png       # Precipitation pattern associated with High- 
@@ -238,16 +242,22 @@ v.00001.2023-04-04
   │   │       │   │                                                                 # model, with GAM and adaptive 
   │   │       │   │                                                                 # landscape for all finches
   │   │       │   ├── fit.surf.PCA_ggpt_EG.png                   # Fitness landscape with PCA traits 
+  │   │       │   ├── fit.surf.rev1_ggpt_EG.png                  # Fitness landscape with more contour levels 
   │   │       │   ├── fit.surf.walk_ggpt_EG.png                  # Walking on the fitness landscape and valleys 
   │   │       │   │                                              # between peaks of different species and between 
   │   │       │   │                                              # peak and phenotypic average within species
   │   │       │   ├── fit.surf.yr.chg_ggpt_EG.png                # Fitness landscape with phenotypic average in 
   │   │       │   │                                              # every year 
-  │   │       │   └── fitplot.average.change_se_ggplt_EG.png     # Standard error of fitness landscape
+  │   │       │   ├── fitplot.average.change_se_ggplt_EG.png     # Standard error of fitness landscape
+  │   │       │   ├── plot.3D.adaptive.land_EG.png               # 3D adaptive landscape plot 
+  │   │       │   ├── plot.3D.fit_land_EG.png                    # 3D fitness landscape plot 
+  │   │       │   ├── plot.3D.fit_land_oneleg_EG.png             # 3D fitness landscape plot (1 legend)
+  │   │       │   └── ppr_ggpt_EG.png                            # Projection pursuit regression 
   │   │       ├── ./maps                                         
   │   │       │   └── santa_Cruz_and_sampling_area_EG.png        # Figure of Santa Cruz island and sampling sites 
   │   │       └── prospective_selection_EG.png                   # Figure of prospective selection 
   │   ├── ./model.out                                      
+  │   │   ├── GAM_model.selection.txt                        # GAM model comparisons
   │   │   ├── poisson.spline.model_EG.RDS                    # GAM model for beak traits
   │   │   ├── poisson.spline.model_pca.RDS                   # GAM model for PC traits
   │   │   └── spline.model.parameters.csv                    # Parameters of spline beak traits
