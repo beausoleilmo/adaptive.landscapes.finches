@@ -62,8 +62,14 @@ gam3.p.selectoff <- gam(mxcpois~s(avg.mbl, bs = "tp", k = k) + # k = 5
 png(filename = paste("output/images/landscape_plots/fitplot.3D_select",ext.file,".png", sep = ""),
     width = 780,height = 480,units = "px", pointsize = 12)
 par(mfrow = c(1,2), mar = c(.1,1,1,1))
-vis.gam(gam3.p,main = "with select = TRUE", type = "response",theta=-80, phi=30,zlim = c(0,1.2),n.grid = 70)
-vis.gam(gam3.p.selectoff,main = "with select = FALSE", type = "response",theta=-80, phi=30,zlim = c(0,1.2),n.grid = 70)
+line.low = -4 # Move the title down for better cropping 
+
+vis.gam(gam3.p,           xlab = "Beak length (mm)", ylab = "Beak depth (mm)", zlab = "Apparent survival", main = "",  type = "response", theta=-80, phi=30,zlim = c(0,1.2),n.grid = 70)
+mtext(text = "With select = TRUE", side = 3, line = line.low, font = 2, cex = 1.5) # Add title a better locaiton
+
+vis.gam(gam3.p.selectoff, xlab = "Beak length (mm)", ylab = "Beak depth (mm)", zlab = "Apparent survival", main = "", type = "response", theta=-80, phi=30,zlim = c(0,1.2),n.grid = 70)
+mtext(text = "With select = FALSE", side = 3, line = line.low, font = 2, cex = 1.5) # Add title a better locaiton
+
 dev.off()
 par(mfrow = c(1,1))
 
