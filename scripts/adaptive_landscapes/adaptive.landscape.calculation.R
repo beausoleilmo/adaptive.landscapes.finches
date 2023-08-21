@@ -325,7 +325,7 @@ ggp.adap.fit = ggplot(data = ada.data,
         strip.text = element_text(colour = 'black', size = 13),
         legend.background = element_rect(fill = "white", color = NA)) +
   labs(tag = "A",
-       title = "Adaptive landscape based simulated bivariate normal",
+       # title = "Adaptive landscape based simulated bivariate normal",
        x = "Mean beak length (mm)",
        y = "Mean beak depth (mm)", 
        fill = "Levels", col = "Levels",
@@ -392,7 +392,7 @@ ggp.adap.fit.f.small = ggplot(data = ada.data.f.small, mapping = aes(x = x, y = 
         strip.text = element_text(colour = 'black', size = 13),
         legend.background = element_rect(fill = "white", color = NA)) +
   labs(tag = "B",
-       title = "Adaptive landscape based on small G. fortis",
+       # title = "Adaptive landscape based on small G. fortis",
        x = "Mean beak length (mm)",
        y = "Mean beak depth (mm)", 
        fill = "Levels", col = "Levels",
@@ -436,7 +436,7 @@ gg.adapt.sim.emp = ggpubr::ggarrange(ggpubr::ggarrange(ggp.adap.fit,
 
 
 # ggsave(filename = paste("~/Desktop/adaptiveland_sim_emp",ext.file,".png", sep = ""),
-ggsave(filename = paste("~/Desktop/adaptiveland_empirical",ext.file,".png", sep = ""),
+ggsave(filename = paste("output/images/landscape_plots/adaptiveland_empirical",ext.file,".png", sep = ""),
        device = "png",
        plot = gg.adapt.sim.emp,
        units = "in", width = 14, height = 12)
