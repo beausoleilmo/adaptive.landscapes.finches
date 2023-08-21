@@ -80,7 +80,7 @@ mbw.x = bird.data.sub %>%
   as.data.frame()
 # mbw.x = 6.83
 mbw.x = mean(bird.data.sub$avg.mbw)
-export.path = "~/Desktop/test_ppr/"
+export.path = "output/test_ppr/"
 
 # png(filename = paste0(export.path, "/ppr.land.example%03d.png"),
 # png(filename = paste0(export.path, "/ppr.land.all.sp.png"),
@@ -178,7 +178,7 @@ cbind(perm = finch.ppr$perm, prediction = round(exp(predict(finch.ppr)), 1))
 
 
 size.pheno = 3 
-text.size = 12
+text.size = 14
 
 ggp.ppr = ggplot(data = new.df.mbx.z, mapping = aes(x = avg.mbl, y = avg.mbd, z = z)) + 
   geom_contour_filled(breaks = brk, show.legend = FALSE)+
@@ -254,7 +254,7 @@ ggp.ppr = ggplot(new.df.mbx.z, mapping = aes(x = avg.mbl, y = avg.mbd, z = z)) +
         strip.background =element_rect(fill="white", colour = "white"),
         strip.text = element_text(colour = 'black', size = 13),
         legend.background = element_rect(fill = "white")) +
-  labs(tag = "D",
+  labs(tag = "",
        x = "Beak length (mm)",
        y = "Beak depth (mm)", fill = "Levels", col = "Species",
        size = 12, alpha = 1) +
@@ -281,4 +281,4 @@ ggp.ppr = ggplot(new.df.mbx.z, mapping = aes(x = avg.mbl, y = avg.mbd, z = z)) +
 
 ggsave(filename = paste("output/images/landscape_plots/ppr_ggpt",ext.file,".png", sep = ""),
        device = "png",
-       plot = ggp.ppr, units = "in", width = 9, height = 8)
+       plot = ggp.ppr, units = "in", width = 8, height = 6)
