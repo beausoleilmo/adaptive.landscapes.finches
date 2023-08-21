@@ -556,6 +556,10 @@ Gmat = matrix(c(V.A.bd, cov.for.bl.bd,
                 cov.for.bl.bd, V.A.bl), nrow = 2, ncol = 2)
 # Similar to equation 9.7 on page 232, Schluter 2000
 # solve calculates the inverse of the g-matrix
+# avg.trait1 = traits[1]
+# avg.trait2 = traits[2]
+# traits.fc     columns are avg.trait2==avg.mbd and avg.trait1==avg.mbl
+# all.local.max columns are x==beak.l, and y==beak.d so I needed to invert the columns to make them similar
 (gtransformed = as.matrix(log(traits.fc[,c(1,2)])) %*% solve(Gmat))
 (gtransformed.peaks = as.matrix(log(all.local.max[,c(2,1)])) %*% solve(Gmat))
 
@@ -593,13 +597,19 @@ df.euclid = data.frame(Species = paste("G.",as.character(fitness.summary$sp2)),
                        euc.sca = round(fitness.summary$eulc.scaled, 2),
                        euc.ang = round(fitness.summary$eulc.angle, 2),
                        euc.gtransformed = round(eucl.gtransfor$eulc, digits = 2),
-                       delta.beta = paste("[",delta.beta[,2],", ", delta.beta[,1], "]", sep =""))
+                       # Note that I INVERTED the delta.beta data to present them as 
+                       # Beak length-beak depth
+                       delta.beta = paste("[",delta.beta[,2],", ", 
+                                              delta.beta[,1],     "]", 
+                                          sep =""))
 
 # new order of species in the data 
 df.euclid = df.euclid[match(levels(bird.data$sp2.fct), rownames(df.euclid)),]
 
 avg.summ = apply(df.euclid[,c("euc", "euc.sca", "euc.ang", "euc.gtransformed")],2, mean)
 df.euclid.exp = rbind(df.euclid,c("Mean", rep("",5), round(avg.summ,2), ""))
+
+# Write the table 
 write.csv(x = df.euclid.exp, 
           file = "output/data.out/tables/euclidean.csv")
 
