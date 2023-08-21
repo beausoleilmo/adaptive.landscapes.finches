@@ -30,7 +30,58 @@ my.persp.data = readRDS(file = "output/data.out/landscape_data/my.persp.data.RDS
 gam3.p = readRDS(file = "output/model.out/poisson.spline.model_EG.RDS")
 all.local.max = readRDS(file = "output/data.out/fitness.landscape.data/all.local.max.RDS")
 w.data = readRDS(file = "output/data.out/fitness.landscape.data/w.data.RDS")
-summ.mean.traits = readRDS(file = "output/data.out/fitness.landscape.data/summ.mean.traits.RDS")
+summ.mean.traits = readRDS(file = "output/data.out/fitness.landscape.data/summary.traits.finches.RDS")
+
+
+# Plotting parameters --------
+size.pheno = 5 # Size of points 
+size.peaks = 5 # Size of triangles
+text.size = 16
+
+# GGplot distribution of small G. fortis ---------------------------------------------------------------------
+prob <- c(0.95,0.90,0.5)
+
+distribution.g.fortis.small = bird.data %>% 
+  filter(sp2 == "fortis small") %>% 
+  ggplot(data =., 
+         mapping = aes(x = avg.mbl, y = avg.mbd)) +
+  # geom_contour_filled() +
+  geom_density_2d_filled(binwidth = .1) +
+  scale_fill_manual(values =  alpha(hcl.colors(4, palette = hcl.pals()[65], rev = TRUE), alpha =  .99))+
+  # geom_contour() +
+  geom_point(alpha = .1) +
+  # multivariate t-distribution
+  stat_ellipse(type = "t", level = 0.99, color = "grey0",  linewidth = 1, alpha = .8, linetype = 2) +
+  stat_ellipse(type = "t", level = 0.95, color = "grey20",  linewidth = 1, alpha = .8, linetype = 2) +
+  # stat_ellipse(type = "t", level = 0.90, color = "grey20", linewidth = 1, alpha = .8, linetype = 2) +
+  stat_ellipse(type = "t", level = 0.50, color = "grey90", linewidth = 1, alpha = .8, linetype = 2) +
+  labs(#tag = "B",
+    x = "Beak length (mm)",
+    y = "Beak depth (mm)", fill = "Levels", 
+    # col = "Species",
+    size = 12, alpha = 1) +
+  theme_bw() + 
+  theme(axis.ticks = element_line(colour = "black"),
+        panel.grid.major = element_line(colour = "grey50", linetype = "dotted", linewidth = .25),
+        panel.grid.minor = element_line(colour = "grey50", linetype = "dotted", linewidth = .25),
+        axis.title = element_text(size = text.size),
+        axis.text = element_text(size = text.size, colour = "black", vjust = 0.25), 
+        axis.text.x = element_text(size = text.size), 
+        axis.text.y = element_text(size = text.size),
+        plot.title = element_text(size = text.size),
+        legend.text = element_text(size = text.size),
+        legend.title = element_text(size = text.size),
+        legend.key = element_rect(fill = "white", color = "grey80"), 
+        plot.tag =element_text(face = "bold", size = 18),
+        strip.background =element_rect(fill="white", colour = "white"),
+        strip.text = element_text(colour = 'black', size = 13),
+        legend.background = element_rect(fill = "white", color = NA)) +
+  labs(tag = "C",
+       title = "",
+       x = "Beak length (mm)",
+       y = "Beak depth (mm)", 
+       fill = "Levels", col = "Levels",
+       size = 12, alpha = 1);distribution.g.fortis.small
 
 # Summary data ------------------------------------------------------------
 # Make a summary of the bird data (used to simulate more points)
@@ -61,29 +112,7 @@ if(save.adaptive.landscape.data){
   empirical = NULL
   # empirical = "fortis small" # Focal species to verify the effect of simulated vs real population data 
   # specify desired contour levels:
-  prob <- c(0.95,0.90,0.5)
-  
-  bird.data %>% 
-    filter(sp2 == "fortis small") %>% 
-  ggplot(data =., 
-         mapping = aes(x = avg.mbl, y = avg.mbd)) +
-    # geom_contour_filled() +
-    geom_density_2d_filled(binwidth = .1) +
-    scale_fill_manual(values =  alpha(hcl.colors(4, palette = hcl.pals()[65], rev = TRUE), alpha =  .99))+
-    # geom_contour() +
-    geom_point(alpha = .1) +
-    # multivariate t-distribution
-    stat_ellipse(type = "t", level = 0.99, color = "grey0",  linewidth = 1, alpha = .8, linetype = 2) +
-    stat_ellipse(type = "t", level = 0.95, color = "grey20",  linewidth = 1, alpha = .8, linetype = 2) +
-    # stat_ellipse(type = "t", level = 0.90, color = "grey20", linewidth = 1, alpha = .8, linetype = 2) +
-    stat_ellipse(type = "t", level = 0.50, color = "grey90", linewidth = 1, alpha = .8, linetype = 2) +
-    labs(#tag = "B",
-         x = "Beak length (mm)",
-         y = "Beak depth (mm)", fill = "Levels", 
-         # col = "Species",
-         size = 12, alpha = 1) +
-    theme_bw()
-  
+
   # More iterations since corvering a larger area, needs a larger resolution 
   all.sp =    adapt.land.fun(sp.check = levels(bird.data$sp2), 
                              data = bird.data, 
@@ -113,12 +142,19 @@ if(save.adaptive.landscape.data){
 # Loading saved estiamtes of adaptive landscapes --------------------------
 # If ran steps before, this will be much faster 
 all.sp = readRDS(file = paste("output/data.out/adpt_land.sp/all.sp",ext.file,".RDS", sep = ""))
+all.sp.f.small = readRDS(file = paste("output/data.out/adpt_land.sp/all.sp",
+                                      paste(ext.file, gsub(pattern = " ", 
+                                                           replacement = "_", 
+                                                           x = "fortis small"), 
+                                            sep = "_"),
+                                      ".RDS", sep = ""))
 
 if(save.adaptive.landscape.data){
   all.sp = readRDS(file = paste("output/data.out/adpt_land.sp/all.sp",ext.file.emp,".RDS", sep = ""))
 }
 
 all.sp$coef.variation
+all.sp.f.small$coef.variation
 
 # PLOT: adaptive landscape ---------------------------------------------
 # Number of colours (not too many as it is difficult to read )
@@ -138,12 +174,15 @@ brks1 = seq(zlim[1],zlim[2],length.out=length(color_plate.dens2)+1)
 brks = c(0,.1, .2, 0.3, .35, .36, .37,  .4, .5,.6, .7, 0.8, 0.9, 1)
 
 # Find overall range to set up the colour scale 
-overall.range.fit.land = range(c(all.sp$z2,my.persp.data$z),na.rm = TRUE)
+overall.range.fit.land = range(c(all.sp$z2, 
+                                 # all.sp.f.small$z2,
+                                 my.persp.data$z),na.rm = TRUE)
 
 # GGplot version ----------------------------------------------------------
 
 # Get the fitness landscape data 
-fit.data = cbind(expand.grid(my.persp.data$m1, my.persp.data$m2), 
+fit.data = cbind(expand.grid(my.persp.data$m1, 
+                             my.persp.data$m2), 
                  as.vector(my.persp.data$z))
 # Rename columns 
 colnames(fit.data) <- c("x", "y", "z")
@@ -155,10 +194,6 @@ mean.beak.per.sp = bird.d %>%
             mean.bd = mean(avg.mbd))
 
 
-# plotting parameters 
-size.pheno = 5 # Size of points 
-size.peaks = 5 # Size of triangles
-text.size = 16
 
 # Data to draw segments 
 peak.pheno = cbind(w.data[,c("sp2", "avg.trait1", "avg.trait2")], 
@@ -239,12 +274,22 @@ ggsave(filename = paste("output/images/landscape_plots/",name.adap.file.rev1,ext
 
 
 ## GGplot: ADAPTIVE LANDSCAPE  --------------------------------------------
+
+# Make adaptative data ----
+
 ada.data = cbind(expand.grid(all.sp$x, 
                              all.sp$y), 
                  as.vector(all.sp$z2)) 
 colnames(ada.data) <- c("x", "y", "z")
 
-ggp.adap.fit = ggplot(data = ada.data, mapping = aes(x = x, y = y, z = z)) + 
+ada.data.f.small = cbind(expand.grid(all.sp.f.small$x, 
+                             all.sp.f.small$y), 
+                 as.vector(all.sp.f.small$z2)) 
+colnames(ada.data.f.small) <- c("x", "y", "z")
+
+# GGplot ----- 
+ggp.adap.fit = ggplot(data = ada.data, 
+                      mapping = aes(x = x, y = y, z = z)) + 
   geom_contour_filled(breaks = brks1) +
   geom_contour(col = alpha("black",.8), linewidth = .2, breaks = brks1) +
   # Add points of all individuals and draw contour to the points 
@@ -279,9 +324,8 @@ ggp.adap.fit = ggplot(data = ada.data, mapping = aes(x = x, y = y, z = z)) +
         strip.background =element_rect(fill="white", colour = "white"),
         strip.text = element_text(colour = 'black', size = 13),
         legend.background = element_rect(fill = "white", color = NA)) +
-  labs(tag = "C",
+  labs(tag = "A",
        title = "Adaptive landscape based simulated bivariate normal",
-       # title = "Adaptive landscape based on small G. fortis",
        x = "Mean beak length (mm)",
        y = "Mean beak depth (mm)", 
        fill = "Levels", col = "Levels",
@@ -312,18 +356,90 @@ ggp.adap.fit = ggplot(data = ada.data, mapping = aes(x = x, y = y, z = z)) +
                           label.placer = label_placer_flattest()
   ); ggp.adap.fit
 
+ggp.adap.fit.f.small = ggplot(data = ada.data.f.small, mapping = aes(x = x, y = y, z = z)) + 
+  geom_contour_filled(breaks = brks1) +
+  geom_contour(col = alpha("black",.8), linewidth = .2, breaks = brks1) +
+  # Add points of all individuals and draw contour to the points 
+  geom_point(data = bird.d, mapping = aes(x = avg.mbl, y = avg.mbd, col = sp2.fct), color = "grey30", alpha = .02, size = 1.05, inherit.aes = FALSE) +
+  geom_point(data = bird.d, mapping = aes(x = avg.mbl, y = avg.mbd, col = sp2.fct), alpha = .02, size = 1, inherit.aes = FALSE) +
+  # Add the trait means 
+  geom_point(data = mean.beak.per.sp,
+             mapping = aes(x = mean.bl, y = mean.bd, color = sp2), color = "black", inherit.aes = FALSE, size = size.pheno+.2) + 
+  geom_point(data = mean.beak.per.sp, 
+             mapping = aes(x = mean.bl, y = mean.bd, color = sp2), inherit.aes = FALSE, size = size.pheno) + 
+  # Add the peaks on the adaptive landscape 
+  geom_point(data = all.local.max, 
+             mapping = aes(x = x, y = y, col = sp),color = "grey10", alpha = .5, shape = 17, inherit.aes = FALSE, size = size.peaks+.6, show.legend = FALSE) + 
+  geom_point(data = all.local.max, 
+             mapping = aes(x = x, y = y, col = sp), shape = 17, inherit.aes = FALSE, size = size.peaks, show.legend = FALSE) + 
+  # Add segments 
+  geom_segment(data = peak.pheno, 
+               mapping = aes(x = avg.trait1, y = avg.trait2, xend = x, yend = y), inherit.aes = FALSE) +
+  theme_classic() +
+  theme(axis.ticks = element_line(colour = "black"),
+        panel.grid.major = element_line(colour = "grey50", linetype = "dotted", linewidth = .25),
+        panel.grid.minor = element_line(colour = "grey50", linetype = "dotted", linewidth = .25),
+        axis.title = element_text(size = text.size),
+        axis.text = element_text(size = text.size, colour = "black", vjust = 0.25), 
+        axis.text.x = element_text(size = text.size), 
+        axis.text.y = element_text(size = text.size),
+        plot.title = element_text(size = text.size),
+        legend.text = element_text(size = text.size),
+        legend.title = element_text(size = text.size),
+        legend.key = element_rect(fill = "white", color = "grey80"), 
+        plot.tag =element_text(face = "bold", size = 18),
+        strip.background =element_rect(fill="white", colour = "white"),
+        strip.text = element_text(colour = 'black', size = 13),
+        legend.background = element_rect(fill = "white", color = NA)) +
+  labs(tag = "B",
+       title = "Adaptive landscape based on small G. fortis",
+       x = "Mean beak length (mm)",
+       y = "Mean beak depth (mm)", 
+       fill = "Levels", col = "Levels",
+       size = 12, alpha = 1) +
+  scale_fill_manual(values =  alpha(color_plate.dens2, .99),
+                    guide = guide_legend(
+                      direction = "vertical",
+                      title.position = "top",
+                      label.position = "bottom",
+                      label.hjust = 0.5,
+                      label.vjust = 1,
+                      label.theme = element_text(angle = 90)
+                    )) +
+  scale_color_manual(values = alpha(pal,1), 
+                     name = "Species",
+                     labels = c(bquote(italic("G. fuliginosa")),
+                                bquote(italic("G. fortis")*" small"),
+                                bquote(italic("G. fortis")*" large"),
+                                bquote(italic("G. magnirostris")),
+                                bquote(italic("G. scandens"))
+                     ))+
+  coord_cartesian(xlim = range(fit.data$x), # Make the coordinate system equivalent to the other plot 
+                  ylim = range(fit.data$y)) +
+  guides(fill = "none",
+         colour = "none"
+  ) +
+  metR::geom_text_contour(aes(z = z), size = 2.5, 
+                          label.placer = label_placer_flattest()
+  ); ggp.adap.fit.f.small
+
 
 ### GGplot empirical -------------------------------------------------------------------------------------------
-# gg.adapt.sim.emp = ggpubr::ggarrange(ggp.adap.fit,
-#                                  ggp.adap.fit2,
-#                                  align = "v",
-#                                  ncol=2, common.legend = TRUE, legend = "right");gg.adapt.sim.emp
+gg.adapt.sim.emp = ggpubr::ggarrange(ggpubr::ggarrange(ggp.adap.fit,
+                                                       ggp.adap.fit.f.small,
+                                                       align = "v",
+                                                       ncol=2, common.legend = F, 
+                                                       legend = "right"),
+                                     distribution.g.fortis.small,
+                                     nrow=2, common.legend = F, 
+                                     legend = "right");gg.adapt.sim.emp
+
 
 # ggsave(filename = paste("~/Desktop/adaptiveland_sim_emp",ext.file,".png", sep = ""),
-# ggsave(filename = paste("~/Desktop/adaptiveland_empirical",ext.file,".png", sep = ""),
-#        device = "png",
-#        plot = gg.adapt.sim.emp, 
-#        units = "in", width = 14, height = 7)
+ggsave(filename = paste("~/Desktop/adaptiveland_empirical",ext.file,".png", sep = ""),
+       device = "png",
+       plot = gg.adapt.sim.emp,
+       units = "in", width = 14, height = 12)
 
 # Add grid 
 ggp.adap.fit = ggp.adap.fit + 
@@ -337,11 +453,13 @@ ggp.fit.no.model = readRDS(file = "output/data.out/ggplot_data/ggp.fit.no.model.
 ## GGplot: Combine panels together -------------------------------------------------
 # The grid
 gg.fit.adapt = ggpubr::ggarrange(ggp.fit.no.model,
-                                 ggp.fit.land, ggp.adap.fit, 
+                                 ggp.fit.land, 
+                                 ggp.adap.fit, 
                                  align = "v",
                                  legend.grob = rbind(get_legend(ggp.fit.no.model),
                                                      get_legend(ggp.fit.land)),
-                                 ncol=1, common.legend = TRUE, legend = "right");gg.fit.adapt
+                                 ncol=1, common.legend = TRUE, 
+                                 legend = "right");gg.fit.adapt
 
 name.adap.file = "fit.surf.adapt.land.simulations_complete_single_ggpt"
 
