@@ -18,7 +18,7 @@
 
 
 # Install libraries only if needed ----------------------------------------------------------------------------
-cat("Will install missing libraries... please wait.", fill = TRUE)
+
 # Source: https://stackoverflow.com/questions/4090169/elegant-way-to-check-for-missing-packages-and-install-them
 list.of.packages <- c("adehabitatHR","cowplot","data.table","faux","fields",
                       "GA","GGally","ggnewscale","ggpubr","ggrepel","ggsignif","ggExtra",
@@ -28,7 +28,8 @@ list.of.packages <- c("adehabitatHR","cowplot","data.table","faux","fields",
                       "rgl","rJava","rptR","scales","scatterplot3d","sf",
                       "tibble","tidyverse","vegan","viridis","xlsx")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
-if(length(new.packages)) install.packages(new.packages)
+
+if(length(new.packages)) cat("Will install missing libraries if needed... please wait.", fill = TRUE);install.packages(new.packages)
 
 # Load libraries ----------------------------------------------------------
 library(data.table)   # check this https://mac.r-project.org/openmp/
