@@ -274,7 +274,14 @@ gg.fit.walk = ggpubr::ggarrange(ggp.walk.fit.land.bridge,
                                 ggp.walk.fit.land.pheno, 
                                  ncol=2, common.legend = TRUE, legend="right")
 
-ggsave(filename = paste("output/images/landscape_plots/fit.surf.walk_ggpt",ext.file,".png", sep = ""),
-       plot = gg.fit.walk, device = "png", units = "in", width = 12, height = 6)
+
+ggsave(filename = paste("output/images/landscape_plots/fit.surf.walk_ggpt",ext.file,
+                        # ".png", 
+                        ".pdf", 
+                        sep = ""),
+       plot = gg.fit.walk, 
+       # device = "png", 
+       device = "pdf", dpi = 320,
+       units = "in", width = 12, height = 6)
 
 
