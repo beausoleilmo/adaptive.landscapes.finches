@@ -324,7 +324,7 @@ ggp.adap.fit = ggplot(data = ada.data,
         strip.background =element_rect(fill="white", colour = "white"),
         strip.text = element_text(colour = 'black', size = 13),
         legend.background = element_rect(fill = "white", color = NA)) +
-  labs(tag = "A",
+  labs(tag = "C",
        # title = "Adaptive landscape based simulated bivariate normal",
        x = "Mean beak length (mm)",
        y = "Mean beak depth (mm)", 
@@ -463,7 +463,9 @@ gg.fit.adapt = ggpubr::ggarrange(ggp.fit.no.model,
 
 name.adap.file = "fit.surf.adapt.land.simulations_complete_single_ggpt"
 
-ggsave(filename = paste("output/images/landscape_plots/", name.adap.file, ext.file,".pdf", sep = ""),
+ggsave(filename = paste("output/images/landscape_plots/", name.adap.file, ext.file,
+                        ".pdf", 
+                        sep = ""),
        device = "pdf",
        plot = gg.fit.adapt, units = "in", width = 7, height = 13)
 
@@ -545,6 +547,9 @@ ggp.fit.land.yr.chg = ggp.fit.land.yr.chg +
 
 ggp.fit.land.yr.chg
 
-ggsave(filename = paste("output/images/landscape_plots/fit.surf.yr.chg_ggpt",ext.file,".png", sep = ""),
-       device = "png",
+ggsave(filename = paste("output/images/landscape_plots/fit.surf.yr.chg_ggpt",ext.file,
+                        ".pdf", 
+                        sep = ""),
+       # device = "png",
+       device = "pdf",
        plot = ggp.fit.land.yr.chg, units = "in", width = 9, height = 8)
