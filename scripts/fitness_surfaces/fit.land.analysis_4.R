@@ -5,7 +5,7 @@
 # Created June 1, 2023
 
 # Why: 
-  # PLot a 3D fitness landscape for better visualization of the peaks. 
+  # Plot a 3D fitness landscape for better visualization of the peaks. 
 
 # Requires
   # Data from the fitness and adaptive landscape 
