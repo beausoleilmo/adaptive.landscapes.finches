@@ -27,7 +27,7 @@ ext.file = "_EG"
 source("scripts/0.0_initialize.R")                       # Libraries and functions
 
 source("scripts/fitness_surfaces/fit.land.analysis.R")   # Further preparation 
-source("scripts/fitness_surfaces/fit.land.analysis_2.R") # This step is long
+source("scripts/fitness_surfaces/fit.land.analysis_2.R") # This step is long (modeling)
 source("scripts/fitness_surfaces/fit.land.analysis_3.R") # Get fitness landscape and prospective selection 
 source("scripts/fitness_surfaces/fit.land.analysis_4.R") # Draw the landscapes in 3D. 
 
