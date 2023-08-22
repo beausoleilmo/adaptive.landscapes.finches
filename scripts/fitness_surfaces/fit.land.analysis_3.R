@@ -644,9 +644,12 @@ write.csv(x = between.species.pheno.eucli$eucl.dist.all.comp.rd,
 
 
 ## PLOT: prospective selection Export for publication --------------------------------------------------
-png(filename = paste("output/images/prospective_selection",ext.file,".png", sep = ""),
+# png(filename = paste("output/images/prospective_selection",ext.file,".png", sep = ""),
+#     width = 8, height = 4.5,
+#     units = "in", res = 300, pointsize = 12, bg = "white")
+pdf(file = paste("output/images/prospective_selection",ext.file,".pdf", sep = ""),
     width = 8, height = 4.5,
-    units = "in", res = 300, pointsize = 12, bg = "white")
+    pointsize = 12, bg = "white")
 par(mfrow = c(1,2), mar = c(3.25,3.5,1.2,.5))
 pos.tag.letter = -0.2
 cex.all = 2
@@ -688,8 +691,10 @@ intersect.lines(p = c(15, 9.0),
                 angl = 45, lty = 2, col.line  = "black", 
                 text1 = c(0.80, 1.40),
                 text2 = c(-0.30, -0.20),
-                txt1 = "ΔBeak size", 
-                txt2 = "ΔBeak shape")
+                txt1 = expression(Delta *"Beak size"), 
+                txt2 = expression(Delta *"Beak shape"))
+
+
 ### Add segments between the 2 traits 
 segments(x0 = all.local.max$beak.d, 
          y0 = all.local.max$beak.l,
@@ -754,8 +759,9 @@ intersect.lines(p = c(-8.5, 13.05),
                 angl = 45, lty = 2, col.line  = "black", 
                 text1 = c(0.56, 0.28), 
                 text2 = c(-1.20, 0.80), 
-                txt1 = "Δβ (Beak size)", 
-                txt2 = "Δβ (Beak shape)")
+                txt1 = expression(Delta * beta ~ "(Beak size)"), 
+                txt2 = expression(Delta * beta ~ "(Beak shape)"))
+
 dev.off()
 
 # BETWEEN SPECIES ----
