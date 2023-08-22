@@ -86,7 +86,8 @@ v.00001.2023-04-04
        and adaptive landscapes. 
 
     We used the data from our long-term monitoring site El Garrapatero on Santa Cruz in the Galápagos, Ecuador. 
-    We calculated lifespan as a fitness proxi from our recapture data to construct a fitness and adaptive landscape using the beak length and depth. 
+    We calculated lifespan as a fitness proxi from our recapture data to construct a fitness and adaptive landscape 
+    using the beak length and depth. 
     The scripts and data and for the R language (R Core Team 2023; R version, 4.2.1 (Funny-Looking Kid)). 
 
 2. Folder content structure and file List: 
@@ -155,6 +156,7 @@ v.00001.2023-04-04
   │   │   ├── fit.land.analysis_3.R                          # Plot fitness landscape, euclidean distance on 
   │   │   │                                                  # landscape, find fitness maxima, prospective 
   │   │   │                                                  # selection, tables of walk on the fitness landscape 
+  │   │   ├── fit.land.analysis_4.R                          # Plot 3D fitness landscape for peak visualization. 
   │   │   ├── fit.land.walk.R                                # Figures of the walk on the fitness landscape 
   │   │   │                                                  # (showing valleys and peaks)
   │   │   ├── plot_fitness_no_model.R                        # Plot fitness landscape using a smoothed average of 
@@ -238,9 +240,12 @@ v.00001.2023-04-04
   │   │       │   │                                                  # the study system 
   │   │       │   └── pairs.traits_EG.png                            # Pairs plot for all beak, body and PCA traits
   │   │       ├── ./landscape_plots                                                
-  │   │       │   ├── fit.surf.adapt.land.simulations_complete_single_ggpt_EG.pdf   # Fitness landscape without 
-  │   │       │   │                                                                 # model, with GAM and adaptive 
-  │   │       │   │                                                                 # landscape for all finches
+  │   │       │   ├── adaptiveland_empirical_EG.png                  # Compared simulated-vs-empirical adaptive 
+                                                                     # landscapes. Phenotypic dist. G. fortis small
+  │   │       │   ├── fit.surf.adapt.land.simulations_complete_single_ggpt_EG.[pdf, png] # Fitness landscape  
+  │   │       │   │                                                                      # without model, with GAM 
+  │   │       │   │                                                                      # and adaptive landscape 
+  │   │       │   │                                                                      # for all finches. 
   │   │       │   ├── fit.surf.PCA_ggpt_EG.png                   # Fitness landscape with PCA traits 
   │   │       │   ├── fit.surf.rev1_ggpt_EG.png                  # Fitness landscape with more contour levels 
   │   │       │   ├── fit.surf.walk_ggpt_EG.png                  # Walking on the fitness landscape and valleys 
@@ -248,7 +253,9 @@ v.00001.2023-04-04
   │   │       │   │                                              # peak and phenotypic average within species
   │   │       │   ├── fit.surf.yr.chg_ggpt_EG.png                # Fitness landscape with phenotypic average in 
   │   │       │   │                                              # every year 
+  │   │       │   ├── fitplot.3D_select_EG.png                   # GAM select = TRUE or FALSE. 
   │   │       │   ├── fitplot.average.change_se_ggplt_EG.png     # Standard error of fitness landscape
+  │   │       │   ├── fitplot.no.model_ggplt_EG.png              # Fitness landscapes without model. 
   │   │       │   ├── plot.3D.adaptive.land_EG.png               # 3D adaptive landscape plot 
   │   │       │   ├── plot.3D.fit_land_EG.png                    # 3D fitness landscape plot 
   │   │       │   ├── plot.3D.fit_land_oneleg_EG.png             # 3D fitness landscape plot (1 legend)
@@ -276,7 +283,7 @@ v.00001.2023-04-04
    
    The main data file is `bird.data.RData` which contains 3428 rows and 64 columns. 
      - Each row correspond to a bird tagged with a unique Monel band (BANDFINAL). 
-     - Species information is given in Species1, sp2, and sp2.fct. 
+     - Species information is given in sp2, and sp2.fct. 
      - Beak measurements were taken multiple times (Beak.{Length, Depth, Width}.{A, B, C}) 
        - The median beak traits was calculated and stored in 'Median{beak trait}'
        - If a bird was recaptured and measure more than once, an average of all median beak measurements 
@@ -304,6 +311,6 @@ v.00001.2023-04-04
 ########### REFERENCES ###########
 ##################################
 
-Reference of functions, data and code taken only are provided inside scripts
+Reference of functions, data and code are provided inside scripts
 R Core Team. 2023. R: A language and environment for statistical computing. R Foundation for Statistical Computing. 
   Vienna, Austria.
