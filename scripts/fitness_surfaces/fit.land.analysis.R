@@ -18,6 +18,25 @@ source('scripts/0.0_initialize.R')
 load('data/bird.data.RData', verbose = TRUE) 
 write.csv(x = bird.data, file = "data/bird.data.csv")
 
+# Check fitness values 
+gg.bar.fitness = ggplot(bird.data, 
+                        mapping = aes(x = mxcpois, 
+                                      col = sp2,
+                                      fill = sp2)) +
+  geom_bar(position = "dodge") + 
+  theme_bw() + 
+  theme(axis.ticks = element_line(colour = "black"),
+        axis.text = element_text(size = 12, colour = "black"),
+        axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 12),
+        legend.text = element_text(size = 12),
+        legend.title = element_text(size = 12,
+                                    face = "bold")) +
+  labs(x = "Apparent survival (Fitness )",
+       y = "Count", 
+       colour = "Species", 
+       fill = "Species");gg.bar.fitness
+
 col.check = c("BANDFINAL", "Date", "Species1", "Sex0", 
               "first", "last",  "maxseen", "ch",  "maxseen.corr", "ch.corr",
               "MedianBeakLength", "MedianBeakWidth", "MedianBeakDepth", "PC1", "PC2","Site", "By.")

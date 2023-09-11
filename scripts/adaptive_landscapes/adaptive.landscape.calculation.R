@@ -417,8 +417,9 @@ ggp.adap.fit.f.small = ggplot(data = ada.data.f.small, mapping = aes(x = x, y = 
   coord_cartesian(xlim = range(fit.data$x), # Make the coordinate system equivalent to the other plot 
                   ylim = range(fit.data$y)) +
   guides(fill = "none",
-         colour = "none"
+         # colour = "none"
   ) +
+  theme(legend.position="bottom")+
   metR::geom_text_contour(aes(z = z), size = 2.5, 
                           label.placer = label_placer_flattest()
   ); ggp.adap.fit.f.small
@@ -427,8 +428,8 @@ ggp.adap.fit.f.small = ggplot(data = ada.data.f.small, mapping = aes(x = x, y = 
 ### GGplot empirical -------------------------------------------------------------------------------------------
 gg.adapt.sim.emp = ggpubr::ggarrange(ggpubr::ggarrange(ggp.adap.fit,
                                                        ggp.adap.fit.f.small,
-                                                       align = "v",
-                                                       ncol=2, common.legend = F, 
+                                                       # align = "v",
+                                                       ncol=2, common.legend = T, 
                                                        legend = "right"),
                                      distribution.g.fortis.small,
                                      nrow=2, common.legend = F, 
@@ -439,7 +440,7 @@ gg.adapt.sim.emp = ggpubr::ggarrange(ggpubr::ggarrange(ggp.adap.fit,
 ggsave(filename = paste("output/images/landscape_plots/adaptiveland_empirical",ext.file,".png", sep = ""),
        device = "png",
        plot = gg.adapt.sim.emp,
-       units = "in", width = 14, height = 12)
+       units = "in", width = 10, height = 8)
 
 # Add grid 
 ggp.adap.fit = ggp.adap.fit + 

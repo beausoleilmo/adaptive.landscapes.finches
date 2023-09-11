@@ -614,7 +614,7 @@ write.csv(x = df.euclid.exp,
           file = "output/data.out/tables/euclidean.csv")
 
 
-## Distance matrix (/PUB\) ---------------------------------------------------------
+## TABLE /PUB\ EUC:Distance matrix ---------------------------------------------------------
 
 sp.ord = c("fuliginosa", "fortis small", "fortis large", "magnirostris", "scandens")
 # Species comparisons of the euclidean distance between mean traits and peaks 
@@ -624,13 +624,15 @@ dist.mat.all.sp(data = gtransformed.peaks[c(3,2,1,4,5),],
 
 # Euclidean distance between all species: take the comparisons and calculate the average 
 # From the g-transformed species means (between the different species means)
-(between.species.gtrans.pheno.eucli = dist.mat.all.sp(data = gtransformed[c(3,2,1,4,5),], 
+(between.species.gtrans.pheno.eucli = dist.mat.all.sp(data = gtransformed[c(3,2,1,4,5),], # Reordered based on sp.ord
                                                       trait1 = 1, trait2 = 2, 
                                                       sp = sp.ord, round = 2))
 # Summary statistics of table 
+# Lower triangle 
 low.tri.mat = as.numeric(num.pairwize.pheno$eucl.dist.all.comp.rd[lower.tri(num.pairwize.pheno$eucl.dist.all.comp.rd)])
 mean(low.tri.mat)
 range(low.tri.mat)
+# Upper triangle 
 up.tri.mat = t(between.species.gtrans.pheno.eucli$eucl.dist.all.comp.rd)[upper.tri(t(between.species.gtrans.pheno.eucli$eucl.dist.all.comp.rd))]
 mean(up.tri.mat)
 range(up.tri.mat)
@@ -638,6 +640,7 @@ range(up.tri.mat)
 between.species.pheno.eucli$eucl.dist.all.comp.rd[upper.tri(between.species.pheno.eucli$eucl.dist.all.comp.rd)] <- t(between.species.gtrans.pheno.eucli$eucl.dist.all.comp.rd)[upper.tri(t(between.species.gtrans.pheno.eucli$eucl.dist.all.comp.rd))]
 diag(between.species.pheno.eucli$eucl.dist.all.comp.rd) <- "-"
 between.species.pheno.eucli$eucl.dist.all.comp.rd
+
 write.csv(x = between.species.pheno.eucli$eucl.dist.all.comp.rd, 
           file = "output/data.out/tables/between.species.pheno.eucli.csv", 
           row.names = TRUE)
@@ -771,7 +774,10 @@ dev.off()
 # The image will also generate the data needed to get the species 
 # make sequence definition (higher = more numbers between 2 points)
 length.out.seq = 250
+
+# Make empty dataframe 
 min.fit.sca.comp = NULL
+
 # plot the expected fitness for the distance between the peaks 
 # The focus here is ALL species to ALL the other species 
 for (target in c("scandens", "fortis large", "fortis small", "fuliginosa", "magnirostris")) {
@@ -794,6 +800,7 @@ for (target in c("scandens", "fortis large", "fortis small", "fuliginosa", "magn
                            res = length.out.seq)
     # generate new predicted fitness values (to find the minimum)
     pred.walk$min.fitval = predict(mod, newdata = pred.walk, type = "response")
+    # Find minimum value 
     min.fit.sca.comp = rbind(min.fit.sca.comp, 
                              pred.walk[which.min(pred.walk$min.fitval),])
   }
