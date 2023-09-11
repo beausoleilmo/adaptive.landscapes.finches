@@ -20,7 +20,7 @@ v.00001.2023-04-04
 
   Co-investigators
     Name: -------------------  Institution: -------------------------
-      Paola Carrión-Avilés       McGill University
+      Paola L. Carrión           McGill University
       Jeffrey Podos              University of Massachusetts Amherst
       Carlos Camacho             Estación Biológica de Doñana—CSIC
       Julio Rabadán-González     Observation.org
@@ -29,11 +29,12 @@ v.00001.2023-04-04
       Joost A. M. Raeymaekers    Nord University
       Sarah A. Knutie            University of Connecticut
       Luis F. De León            University of Massachusetts Boston
-      Jaime A. Chaves            San Francisco State University
+      Jaime A. Chaves            San Francisco State University and Universidad San Francisco de Quito
       Dale H. Clayton            University of Utah
       Jennifer A. H. Koop        Northern Illinois University
-      Diana M. T. Sharpe         Harvard University Center for the Environment
-      Kiyoko M. Gotanda          McGill University 
+      Diana M. T. Sharpe         Harvard University
+      Kiyoko M. Gotanda          Brock University, University of Cambridge, 
+                                 Université de Sherbrooke, and McGill University 
       Sarah K. Huber             Virginia Institute of Marine Science
       Rowan D. H. Barrett        McGill University
       Andrew P. Hendry           McGill University
@@ -53,7 +54,7 @@ v.00001.2023-04-04
   Field work was supported by Earthwatch in 2014 and 2015. 
   NSERC Discovery Grant and Canada Research Chair (R.D.H.B.)
   NSERC Canada Graduate Scholarship, Biodiversity, Ecosystem Services and Sustainability NSERC CREATE (M.-O.B.)
-  Fonds de recherche du Québec, Nature et technologies Scholarship (M.-O.B.)
+  Fonds de recherche du Québec, Nature et technologies Scholarship (208545) (M.-O.B.)
   National Geographic Young Explorers Grants grant (#WW-170ER-17) (M.-O.B.)
   Awards given by the Quebec Centre for Biodiversity Science (M.-O.B.)
 
@@ -68,7 +69,7 @@ v.00001.2023-04-04
   fitness landscape
 
 7. Recommended citation for this dataset: 
-  Beausoleil, Marc-Olivier; Carrión-Avilés, Paola; Podos, Jeffrey; Camacho, Carlos; Rabadán-González, Julio; Richard, Roxanne; Lalla, Kristen; Raeymaekers, Joost A. M.; Knutie, Sarah A.; De León, Luis F.; Chaves, Jaime A.; Clayton, Dale H.; Koop, Jennifer A. H.; Sharpe, Diana M. T.; Gotanda, Kiyoko M.; Huber, Sarah K.; Barrett, Rowan D. H.; Hendry, Andrew P., 2023, "The fitness landscape of a community of Darwin’s finches", https://doi.org/10.5683/SP3/0YIWSE, Borealis. 
+  Beausoleil, Marc-Olivier; Carrión, Paola L.; Podos, Jeffrey; Camacho, Carlos; Rabadán-González, Julio; Richard, Roxanne; Lalla, Kristen; Raeymaekers, Joost A. M.; Knutie, Sarah A.; De León, Luis F.; Chaves, Jaime A.; Clayton, Dale H.; Koop, Jennifer A. H.; Sharpe, Diana M. T.; Gotanda, Kiyoko M.; Huber, Sarah K.; Barrett, Rowan D. H.; Hendry, Andrew P., 2023, "The fitness landscape of a community of Darwin’s finches", https://doi.org/10.5683/SP3/0YIWSE, Borealis. 
 
 ##################################
 ###### DATA & FILE OVERVIEW ######
