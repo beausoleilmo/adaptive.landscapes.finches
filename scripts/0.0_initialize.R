@@ -110,6 +110,13 @@ pal  = c(`fortis large` = "black",
          magnirostris = "darkgreen", 
          scandens = "pink")
 
+# For a presentation purpose... 
+# pal  = c(`fortis large` = "#B51700", 
+#          `fortis small` = "#FF3030", 
+#          fuliginosa = "#9BCD31", 
+#          magnirostris = "#1D90FF", 
+#          scandens = "#FF8002")
+
 # Fitness landscapes ------------------------------------------------------
 
 ## Coefficient of variation ------------------------------------------------
