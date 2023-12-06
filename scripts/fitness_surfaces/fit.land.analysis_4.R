@@ -148,6 +148,101 @@ for (spall in unique(fit.sum$sp2)) {
 
 dev.off()
 
+png(filename = paste("output/images/landscape_plots/plot.3D.fit_land_ggplot.cols_",ext.file,".png", sep = ""),
+    width = 480,height = 480,units = "px", pointsize = 12)
+par(mfrow = c(1,1), mar = c(1,2,1,2))
+
+# Maximum of fitness or adaptive landscape 
+max.z = ceiling(max(c(my.persp.data.plotly$z, ada.data$z), na.rm = TRUE))
+rotation = 30
+# max.z = 0.8
+cat("Drawing fitness landscape in 3D", fill = TRUE)
+plot3D::persp3D(x = my.persp.data$m1,
+                y = my.persp.data$m2, 
+                z = my.persp.data$z,
+                xlab = "Beak length (mm)",
+                ylab = "Beak depth (mm)",
+                zlab = "Fitness",
+                resfac = 1, # Resolution
+                facets = TRUE, # True = surface, false = mesh  
+                ticktype = "detailed", # Detailed = with numbers 
+                xlim = range.x, 
+                ylim = range.y, 
+                # curtain = TRUE,
+                # NAcol = 'yellow',
+                # col.palette = heat.colors,
+                col = hcl.colors(7, "YlOrRd", rev = TRUE, alpha = 1),
+                # contour = list(side = c("zmin","z")), 
+                colkey = list(side = 4, plot = TRUE, length = 1, width = 1, dist = 0, 
+                              shift = 0, addlines = TRUE, col.clab = NULL, 
+                              cex.clab = par("cex.lab"), side.clab = NULL, 
+                              line.clab = NULL, adj.clab = NULL, font.clab = NULL),
+                contour = list(side = c("z"), nlevels = 10), # where to add contour 
+                # lighting = list(ambient = 2),
+                # shade = 0.1,
+                alpha = 1, 
+                box = T, # Draw the box
+                bty = "u", #c("b", "b2", "f", "g", "bl", "bl2", "u", "n")
+                # perspbox arguments
+                col.axis = "black", 
+                col.panel = "gray95", 
+                lwd.panel = 1,lwd.grid = 1,
+                col.grid = "grey", 
+                # image = list(side = "zmin"),
+                breaks = seq(0, (max(my.persp.data.plotly$z, na.rm = TRUE))+.1, by = .1), # Break the colours 
+                zlim = c(0, max.z), # Maximum of z values on plot 
+                # image = list(side = -1),
+                theta = rotation,
+                phi = 30) 
+dev.off()
+
+png(filename = paste("output/images/landscape_plots/plot.3D.ada_land_ggplot.cols_",ext.file,".png", sep = ""),
+    width = 480,height = 480,units = "px", pointsize = 12)
+par(mfrow = c(1,1), mar = c(1,2,1,2))
+# Maximum of fitness or adaptive landscape 
+max.z = ceiling(max(c(my.persp.data.plotly$z, ada.data$z), na.rm = TRUE))
+rotation = 30
+# max.z = 0.8
+cat("Drawing fitness landscape in 3D", fill = TRUE)
+plot3D::persp3D(x = unique(ada.data$x),
+                y = unique(ada.data$y), 
+                z = matrix(ada.data$z, nrow = 90, ncol = 90),
+                xlab = "Mean beak length (mm)",
+                ylab = "Mean beak depth (mm)",
+                zlab = "Fitness",
+                resfac = 1, # Resolution
+                facets = TRUE, # True = surface, false = mesh  
+                ticktype = "detailed", # Detailed = with numbers 
+                xlim = range.x, 
+                ylim = range.y, 
+                # curtain = TRUE,
+                # NAcol = 'yellow',
+                # col.palette = heat.colors,
+                col = hcl.colors(7, "YlOrRd", rev = TRUE, alpha = 1),
+                # contour = list(side = c("zmin","z")), 
+                colkey = list(side = 4, plot = TRUE, length = 1, width = 1, dist = 0, 
+                              shift = 0, addlines = TRUE, col.clab = NULL, 
+                              cex.clab = par("cex.lab"), side.clab = NULL, 
+                              line.clab = NULL, adj.clab = NULL, font.clab = NULL),
+                contour = list(side = c("z"), nlevels = 10), # where to add contour 
+                # lighting = list(ambient = 2),
+                # shade = 0.1,
+                alpha = 1, 
+                box = T, # Draw the box
+                bty = "u", #c("b", "b2", "f", "g", "bl", "bl2", "u", "n")
+                # perspbox arguments
+                col.axis = "black", 
+                col.panel = "gray95", 
+                lwd.panel = 1,lwd.grid = 1,
+                col.grid = "grey", 
+                # image = list(side = "zmin"),
+                breaks = seq(0, (max(my.persp.data.plotly$z, na.rm = TRUE))+.1, by = .1), # Break the colours 
+                zlim = c(0, max.z), # Maximum of z values on plot 
+                # image = list(side = -1),
+                theta = rotation,
+                phi = 30) 
+dev.off()
+
 
 ## PLOT 3D: only 1 legend --------------------------------------------------------------------------------------
 png(filename = paste("output/images/landscape_plots/plot.3D.fit_land_oneleg",ext.file,".png", sep = ""),
